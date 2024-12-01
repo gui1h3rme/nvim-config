@@ -44,6 +44,7 @@ local plugins = {
   'pogyomo/submode.nvim',
   'pogyomo/winresize.nvim',
   'echasnovski/mini.surround',
+  'nvim-lua/lsp-status.nvim',
   {
     'nvimdev/dashboard-nvim',
     event = 'VimEnter',
@@ -67,7 +68,11 @@ local plugins = {
     cmd = 'Copilot',
     event = 'InsertEnter',
   },
-  'zbirenbaum/copilot-cmp'
+  'zbirenbaum/copilot-cmp',
+  {
+    "SmiteshP/nvim-navic",
+    dependencies = "neovim/nvim-lspconfig"
+  }
 }
 local opts = {}
 

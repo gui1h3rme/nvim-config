@@ -3,7 +3,7 @@ require('mason-lspconfig').setup({
   ensure_installed = { 'lua_ls', 'solargraph', 'svelte', 'html', 'ts_ls', 'volar', 'pyright' },
 })
 
-local on_attach = function(_,_)
+local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, {})
   vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, {})
 
@@ -12,8 +12,20 @@ local on_attach = function(_,_)
   vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, { })
 
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
-end
 
+  if client.server_capabilities.documentSymbolProvider then
+    require('nvim-navic').attach(client, bufnr)
+  end
+end
+--[[
+-- This is required to enable copilot autocomplete
+require('copilot').setup({
+  suggestion = { enabled = false },
+  panel = { enabled = false }
+})
+
+require('copilot_cmp').setup()
+--]]
 local cmp = require('cmp')
 
 cmp.setup {
@@ -41,7 +53,13 @@ cmp.setup {
   })
 }
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+local capabilities = vim.tbl_deep_extend("force",
+  vim.lsp.protocol.make_client_capabilities(),
+  require('cmp_nvim_lsp').default_capabilities()
+)
+
+capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 
 require('lspconfig').lua_ls.setup {
   on_attach = on_attach,
@@ -83,3 +101,11 @@ require('lspconfig').volar.setup {
   capabilities = capabilities,
   on_attach = on_attach
 }
+
+require('lsp-status').config {
+  status_symbol  = 'OK',
+  indicator_ok = '',
+}
+
+require('lsp-status').register_progress()
+
