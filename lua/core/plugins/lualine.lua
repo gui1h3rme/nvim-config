@@ -1,5 +1,11 @@
 local gitblame = require('gitblame')
-vim.g.gitblame_display_virtual_text = 0
+
+gitblame.setup {
+  message_template = "<summary> • <author> • <date>",
+  display_virtual_text = false,
+  use_blame_commit_file_urls = true,
+  max_commit_summary_length = 20
+}
 
 require('lualine').setup {
   options = {
@@ -20,7 +26,7 @@ require('lualine').setup {
       {
         gitblame.get_current_blame_text,
         cond = gitblame.is_blame_text_available,
-        on_click = function() vim.cmd('GitBlameOpenCommitURL') end
+        on_click = function() vim.cmd('GitBlameOpenFileURL') end
       }, 'location' },
     lualine_y = { 'encoding', 'fileformat', { 'filetype', icon = nil } },
     lualine_z = { "require'lsp-status'.status()" },
