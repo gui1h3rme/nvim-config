@@ -1,6 +1,6 @@
 require('mason').setup()
 require('mason-lspconfig').setup({
-  ensure_installed = { 'lua_ls', 'solargraph', 'svelte', 'html', 'ts_ls', 'volar', 'pyright' },
+  ensure_installed = { 'lua_ls', 'solargraph', 'svelte', 'html', 'ts_ls', 'volar', 'pylsp' },
 })
 
 local on_attach = function(client, bufnr)
@@ -91,7 +91,7 @@ require('lspconfig').ts_ls.setup {
   on_attach = on_attach
 }
 
-require('lspconfig').pyright.setup {
+require('lspconfig').pylsp.setup {
   capabilities = capabilities,
   on_attach = on_attach
 }
