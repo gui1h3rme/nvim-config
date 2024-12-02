@@ -4,7 +4,8 @@ gitblame.setup {
   message_template = "<summary> • <author> • <date>",
   display_virtual_text = false,
   use_blame_commit_file_urls = true,
-  max_commit_summary_length = 20
+  max_commit_summary_length = 20,
+  date_format = '%x %X'
 }
 
 require('lualine').setup {
