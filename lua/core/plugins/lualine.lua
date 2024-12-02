@@ -8,7 +8,7 @@ require('lualine').setup {
     globalstatus = true
   },
   sections = {
-    lualine_a = { 'branch' },
+    lualine_a = { 'mode', 'branch' },
     lualine_b = {
       { 'filename', path = 1 }
     },
@@ -39,3 +39,5 @@ require('lualine').setup {
   }
 }
 
+-- Disable the default cmdline
+vim.o.cmdheight = 0
