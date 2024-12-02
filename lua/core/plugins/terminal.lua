@@ -10,7 +10,7 @@ local options = {
   }
 }
 
-if vim.fn.has('win32') then
+if vim.fn.has('win32') == 1 then
   options.shell = 'powershell.exe'
 end
 
