@@ -10,7 +10,7 @@ local options = {
   }
 }
 
-if vim.fn.has('macunix') == 0 then
+if vim.fn.has('win32') then
   options.shell = 'powershell.exe'
 end
 
