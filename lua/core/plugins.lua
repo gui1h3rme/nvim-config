@@ -24,6 +24,7 @@ vim.g.maplocalleader = ' '
 local plugins = {
   'edeneast/nightfox.nvim',
   'nvim-tree/nvim-tree.lua',
+  'f-person/git-blame.nvim',
   'nvim-tree/nvim-web-devicons',
   'nvim-lualine/lualine.nvim',
   {
