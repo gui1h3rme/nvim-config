@@ -98,3 +98,11 @@ require('dashboard').setup {
     footer = {},
   }
 }
+
+vim.api.nvim_create_autocmd('BufLeave', {
+  callback = function() 
+    if require('nvim-tree.view').is_visible() == false then  
+      require('nvim-tree.api').tree.toggle(false,true)
+    end
+  end
+})
