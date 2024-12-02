@@ -17,15 +17,14 @@ local on_attach = function(client, bufnr)
     require('nvim-navic').attach(client, bufnr)
   end
 end
---[[
--- This is required to enable copilot autocomplete
+
 require('copilot').setup({
   suggestion = { enabled = false },
   panel = { enabled = false }
 })
 
 require('copilot_cmp').setup()
---]]
+
 local cmp = require('cmp')
 
 cmp.setup {
