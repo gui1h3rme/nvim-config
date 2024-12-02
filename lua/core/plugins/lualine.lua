@@ -36,7 +36,8 @@ require('lualine').setup {
       { 'filetype', icon_only = true, colored = false, separator = '' },
       { 'filename', path = 0, file_status = false },
     }
-  }
+  },
+  extensions = { 'nvim-tree', 'fugitive', 'toggleterm', 'mason', 'lazy' }
 }
 
 -- Disable the default cmdline
