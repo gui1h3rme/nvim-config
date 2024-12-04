@@ -100,11 +100,3 @@ require('lspconfig').volar.setup {
   capabilities = capabilities,
   on_attach = on_attach
 }
-
-require('lsp-status').config {
-  status_symbol  = 'OK',
-  indicator_ok = '',
-}
-
-require('lsp-status').register_progress()
-

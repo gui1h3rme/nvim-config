@@ -45,7 +45,7 @@ local plugins = {
   'pogyomo/submode.nvim',
   'pogyomo/winresize.nvim',
   'echasnovski/mini.surround',
-  'nvim-lua/lsp-status.nvim',
+  'arkav/lualine-lsp-progress',
   {
     'nvimdev/dashboard-nvim',
     event = 'VimEnter',

@@ -4,8 +4,8 @@ gitblame.setup {
   message_template = "<summary> • <author> • <date>",
   display_virtual_text = false,
   use_blame_commit_file_urls = true,
-  max_commit_summary_length = 20,
-  date_format = '%x %X'
+  max_commit_summary_length = 25,
+  date_format = '%x'
 }
 
 require('lualine').setup {
@@ -30,7 +30,7 @@ require('lualine').setup {
         on_click = function() vim.cmd('GitBlameOpenFileURL') end
       }, 'location' },
     lualine_y = { 'encoding', 'fileformat', { 'filetype', icon = nil } },
-    lualine_z = { "require'lsp-status'.status()" },
+    lualine_z = { 'lsp_progress' },
   },
   winbar = {
     lualine_c = { },
@@ -56,4 +56,4 @@ require('lualine').setup {
 }
 
 -- Disable the default cmdline
-vim.o.cmdheight = 0
+vim.o.cmdheight = 2
