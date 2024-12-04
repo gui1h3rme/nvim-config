@@ -1,3 +1,16 @@
+vim.api.nvim_create_autocmd('BufEnter', {
+  callback = function ()
+    local bufname = vim.api.nvim_buf_get_name(0)
+
+    if string.match(bufname, '^fugitive:') ~= nil or
+       string.match(bufname, 'COMMIT_EDITMSG$') ~= nil then
+      vim.cmd('setlocal nonumber foldcolumn=5')
+    else
+      print(bufname)
+    end
+  end
+})
+
 require('gitsigns').setup {
   on_attach = function(bufnr)
     local gitsigns = require('gitsigns')
