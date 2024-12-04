@@ -73,6 +73,13 @@ local plugins = {
   {
     "SmiteshP/nvim-navic",
     dependencies = "neovim/nvim-lspconfig"
+  },
+  {
+      "lukas-reineke/indent-blankline.nvim",
+      main = "ibl",
+      ---@module "ibl"
+      ---@type ibl.config
+      opts = {},
   }
 }
 local opts = {}
