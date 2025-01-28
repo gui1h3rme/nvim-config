@@ -3,7 +3,7 @@ require('core.plugins')
 require('core.plugins.setup')
 
 if vim.g.neovide then
-  vim.o.guifont = "CommitMono Nerd Font:h10"
+  vim.o.guifont = "CommitMono Nerd Font:h12"
 end
 
 -- fold settings

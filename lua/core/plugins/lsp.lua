@@ -1,6 +1,6 @@
 require('mason').setup()
 require('mason-lspconfig').setup({
-  ensure_installed = { 'lua_ls', 'solargraph', 'svelte', 'html', 'ts_ls', 'volar', 'pylsp' },
+  ensure_installed = { 'lua_ls', 'solargraph', 'svelte', 'html', 'ts_ls', 'vuels', 'pylsp' },
 })
 
 local on_attach = function(client, bufnr)
@@ -20,7 +20,8 @@ end
 
 require('copilot').setup({
   suggestion = { enabled = false },
-  panel = { enabled = false }
+  panel = { enabled = false },
+  filetypes = { gitcommit = true }
 })
 
 require('copilot_cmp').setup()
@@ -96,7 +97,7 @@ require('lspconfig').pylsp.setup {
   on_attach = on_attach
 }
 
-require('lspconfig').volar.setup {
+require('lspconfig').vuels.setup {
   capabilities = capabilities,
   on_attach = on_attach
 }
