@@ -56,4 +56,4 @@ require('lualine').setup {
 }
 
 -- Disable the default cmdline
-vim.o.cmdheight = 2
+vim.o.cmdheight = 1
