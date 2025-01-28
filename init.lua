@@ -14,3 +14,6 @@ vim.o.foldlevelstart = 99
 vim.o.foldmethod = 'expr'
 -- let tree-sitter define folds
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+
+vim.opt.listchars = {eol = '↵'}
+vim.opt.list = true
