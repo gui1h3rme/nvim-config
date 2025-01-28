@@ -1,6 +1,4 @@
-require('ibl').setup()
-
-require('ibl').overwrite {
+require('ibl').setup {
   exclude = {
     filetypes = { 'dashboard' }
   }

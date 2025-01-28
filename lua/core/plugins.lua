@@ -47,13 +47,6 @@ local plugins = {
   'echasnovski/mini.surround',
   'arkav/lualine-lsp-progress',
   {
-    'nvimdev/dashboard-nvim',
-    event = 'VimEnter',
-    dependencies = {
-      'nvim-tree/nvim-web-devicons'
-    }
-  },
-  {
     'hrsh7th/nvim-cmp',
     dependencies = {
       'hrsh7th/cmp-nvim-lsp',
@@ -80,7 +73,15 @@ local plugins = {
       ---@module "ibl"
       ---@type ibl.config
       opts = {},
-  }
+  },
+  {
+    'nvimdev/dashboard-nvim',
+    event = 'VimEnter',
+    dependencies = {
+      'nvim-tree/nvim-web-devicons'
+    }
+  },
+  'ahmedkhalf/project.nvim'
 }
 local opts = {}
 

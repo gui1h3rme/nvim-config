@@ -1,7 +1,9 @@
 local telescope = require('telescope')
 
 telescope.setup {}
+
 telescope.load_extension('live_grep_args')
+telescope.load_extension('projects')
 
 local builtin = require('telescope.builtin')
 
