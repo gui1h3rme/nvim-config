@@ -64,13 +64,13 @@ local plugins = {
   },
   'zbirenbaum/copilot-cmp',
   {
-    "SmiteshP/nvim-navic",
-    dependencies = "neovim/nvim-lspconfig"
+    'SmiteshP/nvim-navic',
+    dependencies = 'neovim/nvim-lspconfig'
   },
   {
-      "lukas-reineke/indent-blankline.nvim",
-      main = "ibl",
-      ---@module "ibl"
+      'lukas-reineke/indent-blankline.nvim',
+      main = 'ibl',
+      ---@module 'ibl'
       ---@type ibl.config
       opts = {},
   },
@@ -81,7 +81,13 @@ local plugins = {
       'nvim-tree/nvim-web-devicons'
     }
   },
-  'ahmedkhalf/project.nvim'
+  'ahmedkhalf/project.nvim',
+  {
+    'nvim-neorg/neorg',
+    lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+    version = '*', -- Pin Neorg to the latest stable release
+    config = true,
+  }
 }
 local opts = {}
 
