@@ -13,7 +13,7 @@ require('lualine').setup {
     icons_enabled = true,
     theme = 'gruvbox',
     disabled_filetypes = {
-      winbar = { 'packer', 'NvimTree' }
+      winbar = { 'packer', 'oil' }
     },
     globalstatus = true
   },
@@ -52,7 +52,7 @@ require('lualine').setup {
       { 'filename', path = 0, file_status = false },
     }
   },
-  extensions = { 'nvim-tree', 'fugitive', 'toggleterm', 'mason', 'lazy' }
+  extensions = { 'oil', 'fugitive', 'toggleterm', 'mason', 'lazy' }
 }
 
 -- Disable the default cmdline
