@@ -23,7 +23,6 @@ vim.g.maplocalleader = ' '
 
 local plugins = {
   'edeneast/nightfox.nvim',
-  'nvim-tree/nvim-tree.lua',
   'f-person/git-blame.nvim',
   'nvim-tree/nvim-web-devicons',
   'nvim-lualine/lualine.nvim',
@@ -87,6 +86,14 @@ local plugins = {
     lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
     version = '*', -- Pin Neorg to the latest stable release
     config = true,
+  },
+  {
+    'stevearc/oil.nvim',
+    ---@module 'oil'
+    ---@type oil.SetupOpts
+    opts = {},
+    dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+    lazy = false,
   }
 }
 local opts = {}
