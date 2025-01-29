@@ -42,7 +42,10 @@ vim.keymap.set('n', '<C-Space-Right>', '<C-w>v')
 -- Quit current buffer
 vim.keymap.set('n', '<Space><ESC>', '<C-w>q')
 
-vim.keymap.set('v', '<Space>r', 'y:%s/<C-r>0//g<Left><Left>', { desc = 'Search/replace visual' })
+-- Copy relative path
+vim.keymap.set('n', '<C-y>', ':lua vim.fn.setreg(\'+\', vim.fn.expand(\'%\'))<CR>')
+
+-- Replace selected text
 vim.keymap.set('v', '<Space>f', 'y:/<C-r>0/', { desc = 'Search/Visual' })
 
 vim.keymap.set('v', '<Space>gf', 'y:/Telescope live_Grep <C-r>0', { desc = 'Live Grep Search/Visual' })
