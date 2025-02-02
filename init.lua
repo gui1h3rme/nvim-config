@@ -17,3 +17,4 @@ vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 
 vim.opt.listchars = {eol = '↵'}
 vim.opt.list = true
+vim.o.conceallevel = 2

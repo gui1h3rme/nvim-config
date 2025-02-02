@@ -85,37 +85,6 @@ local plugins = {
     'nvim-neorg/neorg',
     lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
     version = '*', -- Pin Neorg to the latest stable release
-    config = function ()
-      require("neorg").setup {
-        load = {
-          ["core.defaults"] = {},
-          ["core.concealer"] = {},
-          ["core.dirman"] = {
-            config = {
-              workspaces = {
-                notes = "~/notes",
-              },
-              default_workspace = "notes",
-            },
-          },
-          ["core.completion"] = {
-              config = {
-                  engine = "nvim-cmp",
-              }
-          },
-          ["core.integrations.nvim-cmp"] = {},
-          ["core.integrations.telescope"] = {
-            config = {
-              insert_file_link = {
-                -- Whether to show the title preview in telescope. Affects performance with a large
-                -- number of files.
-                show_title_preview = true,
-              },
-            }
-          }
-        },
-      }
-    end,
     dependencies = { { "nvim-lua/plenary.nvim" }, { "nvim-neorg/neorg-telescope" } },
   },
   {
