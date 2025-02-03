@@ -43,7 +43,8 @@ vim.keymap.set('n', '<C-Space-Right>', '<C-w>v')
 vim.keymap.set('n', '<Space><ESC>', '<C-w>q')
 
 -- Copy relative path
-vim.keymap.set('n', '<C-y>', ':lua vim.fn.setreg(\'+\', vim.fn.expand(\'%\'))<CR>')
+vim.keymap.set('n', '<Space>pr', ':lua vim.fn.setreg(\'+\', vim.fn.expand(\'%.\'))<CR>')
+vim.keymap.set('n', '<Space>pa', ':lua vim.fn.setreg(\'+\', vim.fn.expand(\'%:p\'))<CR>')
 
 -- Replace selected text
 vim.keymap.set('v', '<Space>f', 'y:/<C-r>0/', { desc = 'Search/Visual' })

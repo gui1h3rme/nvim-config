@@ -1,5 +1,5 @@
 require('ibl').setup {
   exclude = {
-    filetypes = { 'dashboard' }
+    filetypes = { 'dashboard', 'norg' }
   }
 }
