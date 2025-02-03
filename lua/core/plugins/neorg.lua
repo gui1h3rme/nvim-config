@@ -24,6 +24,11 @@ require("neorg").setup {
           show_title_preview = true,
         },
       }
-    }
+    },
+    ["external.templates"] = {
+      config = {
+        templates_dir = "~/notes/templates"
+      }
+    },
   },
 }

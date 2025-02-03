@@ -85,7 +85,11 @@ local plugins = {
     'nvim-neorg/neorg',
     lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
     version = '*', -- Pin Neorg to the latest stable release
-    dependencies = { { "nvim-lua/plenary.nvim" }, { "nvim-neorg/neorg-telescope" } },
+    dependencies = { 
+      "nvim-lua/plenary.nvim",
+      "nvim-neorg/neorg-telescope",
+      { "pysan3/neorg-templates", dependencies = { "L3MON4D3/LuaSnip" } }
+    }
   },
   {
     'stevearc/oil.nvim',
