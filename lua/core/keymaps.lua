@@ -15,6 +15,7 @@ vim.opt.expandtab = true
 
 vim.wo.number = true
 
+vim.keymap.set('n', 'ZW', ':w!<CR>')
 -- Switch buffers
 vim.keymap.set('n', '<Space><Left>', '<C-w>h')
 vim.keymap.set('n', '<Space><Down>', '<C-w>j')
