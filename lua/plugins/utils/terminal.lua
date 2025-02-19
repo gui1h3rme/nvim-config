@@ -14,4 +14,7 @@ if vim.fn.has('win32') == 1 then
   options.shell = 'powershell.exe'
 end
 
-require('toggleterm').setup(options)
+return {
+  'akinsho/toggleterm.nvim',
+  opts = options
+}

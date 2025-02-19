@@ -43,6 +43,9 @@ vim.keymap.set('n', '<C-Space-Right>', '<C-w>v')
 -- Quit current buffer
 vim.keymap.set('n', '<Space><ESC>', '<C-w>q')
 
+-- Close Telescope popover
+vim.keymap.set('n', '<Esc>', '<Nop>')
+
 -- Copy relative path
 vim.keymap.set('n', '<Space>pr', ':lua vim.fn.setreg(\'+\', vim.fn.expand(\'%.\'))<CR>')
 vim.keymap.set('n', '<Space>pa', ':lua vim.fn.setreg(\'+\', vim.fn.expand(\'%:p\'))<CR>')

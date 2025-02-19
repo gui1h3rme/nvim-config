@@ -1,6 +1,5 @@
-require('core.keymaps')
-require('core.plugins')
-require('core.plugins.setup')
+require('config.keymaps')
+require('config.plugins')
 
 if vim.g.neovide then
   vim.o.guifont = "CommitMono Nerd Font:h12"
