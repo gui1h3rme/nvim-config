@@ -5,12 +5,13 @@ return {
   },
   opts = {},
   keys = {
-    { 
+    {
       '-',
-      function() 
+      function()
         require('oil').open()
       end,
       desc = 'Open parent directory'
     },
   },
+  event = 'VeryLazy'
 }

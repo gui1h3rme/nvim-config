@@ -27,6 +27,8 @@ return {
     config = function ()
       local cmp = require('cmp')
 
+      require('copilot_cmp').setup({})
+
       cmp.setup({
         window = {
           completion = cmp.config.window.bordered(),
