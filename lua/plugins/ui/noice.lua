@@ -1,3 +1,6 @@
+local row = math.floor(
+  vim.api.nvim_win_get_height(0) / 2
+)
 return{
   'folke/noice.nvim',
   event = 'VeryLazy',
@@ -5,6 +8,34 @@ return{
     views = {
       notify = {
         replace = true,
+      },
+      cmdline_popup = {
+        position = {
+          row = row,
+          col = "50%",
+        },
+        size = {
+          min_width = 60,
+          width = "auto",
+          height = "auto",
+        },
+      },
+      cmdline_popupmenu = {
+        position = {
+          row = row + 3,
+          col = "50%",
+        },
+        size = {
+          width = 60,
+          height = 10,
+        },
+        border = {
+          style = "rounded",
+          padding = { 0, 1 },
+        },
+        win_options = {
+          winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
+        },
       },
     },
     lsp = {
