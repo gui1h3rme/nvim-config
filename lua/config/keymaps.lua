@@ -53,8 +53,6 @@ vim.keymap.set('n', '<Space>pa', ':lua vim.fn.setreg(\'+\', vim.fn.expand(\'%:p\
 -- Replace selected text
 vim.keymap.set('v', '<Space>f', 'y:/<C-r>0/', { desc = 'Search/Visual' })
 
-vim.keymap.set('v', '<Space>gf', 'y:/Telescope live_Grep <C-r>0', { desc = 'Live Grep Search/Visual' })
-
 -- Neorg
 vim.keymap.set('n', '<Space>w', ':Telescope neorg switch_workspace<CR>')
 vim.keymap.set('n', '<Space>r', ':Neorg return<CR><CR>')
