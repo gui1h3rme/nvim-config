@@ -12,9 +12,10 @@ return {
     }
   },
   keys = {
-    { '<C-p>'     , require('telescope.builtin').find_files, desc = "Search files" },
-    { '<Leader>fr', require('telescope.builtin').resume,     desc = "Search resume" },
-    { '<C-[>'     , '<CMD>Telescope projects<CR>',           desc = "Search projects" }
+    { '<C-p>'     , '<CMD>Telescope find_files<CR>'    , desc = "Search files" },
+    { '<Leader-\\>'     , '<CMD>Telescope live_grep_args<CR>', desc = "Search files" },
+    { '<Leader-r>'     , '<CMD>Telescope resume<CR>'        , desc = "Search resume" },
+    { '<Leader-p>'     , '<CMD>Telescope projects<CR>'      , desc = "Search projects" }
   },
   config = function()
     require('telescope').load_extension('live_grep_args')

@@ -1,6 +1,6 @@
 local options = {
   size = 10,
-  open_mapping = [[<C-/>]],
+  open_mapping = [[<C-_>]],
   start_in_insert = true,
   direction = 'float',
   float_opts = {
