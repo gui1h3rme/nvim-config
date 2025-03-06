@@ -12,10 +12,10 @@ return {
     }
   },
   keys = {
-    { '<C-p>'     , '<CMD>Telescope find_files<CR>'    , desc = "Search files" },
-    { '<Leader-\\>'     , '<CMD>Telescope live_grep_args<CR>', desc = "Search files" },
-    { '<Leader-r>'     , '<CMD>Telescope resume<CR>'        , desc = "Search resume" },
-    { '<Leader-p>'     , '<CMD>Telescope projects<CR>'      , desc = "Search projects" }
+    { '<Leader>ff'     , '<CMD>Telescope find_files<CR>'    , desc = "Search files" },
+    { '<Leader>fg'     , '<CMD>Telescope live_grep_args<CR>', desc = "Search files" },
+    { '<Leader>fr'     , '<CMD>Telescope resume<CR>'        , desc = "Search resume" },
+    { '<Leader>fp'     , '<CMD>Telescope projects<CR>'      , desc = "Search projects" }
   },
   config = function()
     require('telescope').load_extension('live_grep_args')
