@@ -24,7 +24,7 @@ return {
         }
       }
     },
-    config = function ()
+    config = function()
       local cmp = require('cmp')
 
       require('copilot_cmp').setup({})
@@ -39,7 +39,7 @@ return {
           end
         },
         mapping = cmp.mapping.preset.insert({
-          ['<CR>'] = cmp.mapping.confirm({
+          ['<C-CR>'] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Rplace,
             select = true
           }),
@@ -47,13 +47,13 @@ return {
           ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' })
         }),
         sources = cmp.config.sources({
-            { name = 'copilot', group_index = 2 },
-            { name = 'nvim_lsp', group_index = 2 },
-            { name = 'vsnip', group_index = 2 },
-            { name = 'neorg', group_index = 2 }
-          },{
-            { name = 'buffer' },
-          }
+          { name = 'copilot',  group_index = 2 },
+          { name = 'nvim_lsp', group_index = 2 },
+          { name = 'vsnip',    group_index = 2 },
+          { name = 'neorg',    group_index = 2 }
+        }, {
+          { name = 'buffer' },
+        }
         )
       })
     end
