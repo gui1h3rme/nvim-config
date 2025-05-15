@@ -16,7 +16,8 @@ return {
         'css',
         'scss',
         'pug',
-        'vue'
+        'vue',
+        'terraform'
       },
       highlight = {
         enable = true
