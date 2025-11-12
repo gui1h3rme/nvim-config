@@ -50,7 +50,7 @@ vim.keymap.set('n', '<Esc>', '<Nop>')
 vim.keymap.set('n', '<Space>pr', ':lua vim.fn.setreg(\'+\', vim.fn.expand(\'%.\'))<CR>')
 vim.keymap.set('n', '<Space>pa', ':lua vim.fn.setreg(\'+\', vim.fn.expand(\'%:p\'))<CR>')
 
-vim.keymap.set('v', '<Space>tp', ':ToggleTermSendVisualSelection<CR>')
+vim.keymap.set('v', '<Space>tp', '<Cmd> execute "ToggleTermSendVisualSelection " . v:count1 . "" <CR>')
 -- Replace selected text
 vim.keymap.set('v', '<Space>f', 'y:/<C-r>0/', { desc = 'Search/Visual' })
 

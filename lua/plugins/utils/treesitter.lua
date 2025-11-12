@@ -17,7 +17,9 @@ return {
         'scss',
         'pug',
         'vue',
-        'terraform'
+        'terraform',
+        'graphql',
+        'c_sharp'
       },
       highlight = {
         enable = true

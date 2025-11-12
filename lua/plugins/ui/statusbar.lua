@@ -17,7 +17,7 @@ return {
       icons_enabled = true,
       theme = 'gruvbox',
       disabled_filetypes = {
-        winbar = { 'packer', 'oil' }
+        winbar = { 'packer', 'oil', 'toggleterm' }
       },
       globalstatus = true
     },

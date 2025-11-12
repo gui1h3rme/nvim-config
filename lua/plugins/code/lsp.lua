@@ -20,14 +20,36 @@ return {
 
         vim.keymap.set('n', '<Space>ca', vim.lsp.buf.code_action, { desc = 'Perform code actions' })
         vim.keymap.set('n', '<Space>rn', vim.lsp.buf.rename, { desc = 'Rename definition' })
-        vim.keymap.set('n', '<Space>f', vim.lsp.buf.format, { desc = 'Format code' })
+        vim.keymap.set('n', '<Space>f', function ()
+          vim.lsp.buf.format({
+            async = true,
+            timeout_ms = 10000,
+          })
+        end, { desc = 'Format code' })
 
         if client.server_capabilities.documentSymbolProvider then
           require('nvim-navic').attach(client, buffer)
         end
       end
 
-      require('mason').setup({})
+      vim.lsp.config('*', {
+        capabilites = require('cmp_nvim_lsp').default_capabilities(),
+        on_attach = lsp_actions
+      })
+
+      vim.lsp.config('lua_ls', {
+        capabilites = require('cmp_nvim_lsp').default_capabilities(),
+        on_attach = lsp_actions,
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { 'vim' }
+            }
+          }
+        }
+      })
+
+      require('mason').setup()
       require('mason-lspconfig').setup({
         ensure_installed = {
           'lua_ls',
@@ -36,29 +58,10 @@ return {
           'html',
           'ts_ls',
           'vuels',
-          'pylsp'
+          'pylsp',
+          'graphql',
+          'csharp_ls'
         },
-        handlers = {
-          function(server)
-            lsp[server].setup({
-              capabilites = require('cmp_nvim_lsp').default_capabilities(),
-              on_attach = lsp_actions
-            })
-          end,
-          ['lua_ls'] = function()
-            lsp.lua_ls.setup({
-              capabilites = require('cmp_nvim_lsp').default_capabilities(),
-              on_attach = lsp_actions,
-              settings = {
-                Lua = {
-                  diagnostics = {
-                    globals = { 'vim' }
-                  }
-                }
-              }
-            })
-          end
-        }
       })
     end
   },
