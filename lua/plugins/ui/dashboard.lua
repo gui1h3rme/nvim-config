@@ -1,6 +1,6 @@
 local logo = [[
 
- ____ 
+ ____
 ||G ||
 ||__||
 |/__\|
@@ -18,8 +18,11 @@ return {
     config = {
       header = vim.split(string.rep('\n', 2) .. logo, '\n'),
       mru = { enable = false },
-      projects = { enale = true, limit = 20 }
+      project = {
+        enable = true,
+        limit = 20,
+        action = 'FzfLua files cwd=',
+      }
     }
   }
 }
-

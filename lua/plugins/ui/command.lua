@@ -11,15 +11,18 @@ return {
     cmdline = {
       enabled = true,
       opts = {
-        render = 'compact',
-        position  = { 
+        position = {
           row = '95%'
         }
       },
-      view = 'cmdline_popup'
-    },
-    notify = {
-      enabled = false
+    }
+  },
+  dependencies = {
+    'MunifTanjim/nui.nvim',
+    { 'rcarriga/nvim-notify', 
+      opts = {
+        render = 'compact'
+      }
     }
   }
 }

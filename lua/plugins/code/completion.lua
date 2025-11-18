@@ -29,15 +29,57 @@ return {
 
       require('copilot_cmp').setup({})
 
-      cmp.setup.cmdline('/', {
-        mapping = cmp.mapping.preset.cmdline(),
+      local mapping = {
+        ['<Tab>'] = {
+          c = function ()
+            if cmp.visible() then
+              cmp.select_next_item()
+            else
+              cmp.complete()
+            end
+          end
+        },
+        ['<S-Tab>'] = {
+          c = function ()
+            if cmp.visible() then
+              cmp.select_prev_item()
+            else
+              cmp.complete()
+            end
+          end
+        },
+        ['<C-Down>'] = {
+          c = function ()
+            if cmp.visible() then
+              cmp.select_next_item()
+            else
+              cmp.complete()
+            end
+          end
+        },
+        ['<C-Up>'] = {
+          c = function ()
+            if cmp.visible() then
+              cmp.select_prev_item()
+            else
+              cmp.complete()
+            end
+          end
+        },
+        ['<C-CR>'] = {
+          c = cmp.mapping.confirm({ select = false })
+        }
+      }
+
+      cmp.setup.cmdline('/',{
+        mapping = mapping,
         sources = {
           { name = 'buffer' }
         }
       })
 
       cmp.setup.cmdline(':', {
-        mapping = cmp.mapping.preset.cmdline(),
+        mapping = mapping,
         sources = cmp.config.sources({
           { name = 'path' }
         }, {

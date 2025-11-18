@@ -34,7 +34,7 @@ vim.keymap.set('n', '<S-Down>', '<C-w>+')
 vim.keymap.set('n', '<S-Left>', '<C-w>>')
 vim.keymap.set('n', '<S-Right>', '<C-w><')
 
--- Split current buffer 
+-- Split current buffer
 vim.keymap.set('n', '<C-Space-Up>', '<C-w>s')
 vim.keymap.set('n', '<C-Space-Down>', '<C-w>s')
 vim.keymap.set('n', '<C-Space-Left>', '<C-w>v')
@@ -50,10 +50,17 @@ vim.keymap.set('n', '<Esc>', '<Nop>')
 vim.keymap.set('n', '<Space>pr', ':lua vim.fn.setreg(\'+\', vim.fn.expand(\'%.\'))<CR>')
 vim.keymap.set('n', '<Space>pa', ':lua vim.fn.setreg(\'+\', vim.fn.expand(\'%:p\'))<CR>')
 
+-- Terminal Past
 vim.keymap.set('v', '<Space>tp', '<Cmd> execute "ToggleTermSendVisualSelection " . v:count1 . "" <CR>')
+
 -- Replace selected text
 vim.keymap.set('v', '<Space>f', 'y:/<C-r>0/', { desc = 'Search/Visual' })
 
--- Neorg
-vim.keymap.set('n', '<Space>w', ':Telescope neorg switch_workspace<CR>')
-vim.keymap.set('n', '<Space>r', ':Neorg return<CR><CR>')
+-- Search Fzf
+vim.keymap.set('n', '<Leader>ff', ':FzfLua files<CR>', { desc = "Search files" })
+vim.keymap.set('n', '<Leader>fg', ':FzfLua live_grep_glob<CR>', { desc = "Search files" })
+vim.keymap.set('n', '<Leader>fr', ':FzfLua resume<CR>', { desc = "Search resume" })
+vim.keymap.set('n', '<Leader>fp', ':ProjectFzf<CR>', { desc = "Search projects" })
+
+-- Git
+vim.keymap.set('n', 'G', ':Git<CR>', { desc = 'Open Fugitive' })
