@@ -18,17 +18,43 @@ return {
 
         vim.keymap.set('n', '<Space>ca', vim.lsp.buf.code_action, { desc = 'Perform code actions' })
         vim.keymap.set('n', '<Space>rn', vim.lsp.buf.rename, { desc = 'Rename definition' })
-        vim.keymap.set('n', '<Space>f', function ()
+        vim.keymap.set('n', '<Space>f', function()
           vim.lsp.buf.format({
             async = true,
             timeout_ms = 10000,
           })
         end, { desc = 'Format code' })
 
-          if client.server_capabilities.documentSymbolProvider then
-            require('nvim-navic').attach(client, buffer)
-          end
+        if client.server_capabilities.documentSymbolProvider then
+          require('nvim-navic').attach(client, buffer)
+        end
       end
+
+      vim.diagnostic.config({
+        virtual_lines = {
+          current_line = true
+        },
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = "",
+            [vim.diagnostic.severity.WARN] = "",
+            [vim.diagnostic.severity.INFO] = "󰋼",
+            [vim.diagnostic.severity.HINT] = "󰌵",
+          },
+          texthl = {
+            [vim.diagnostic.severity.ERROR] = "Error",
+            [vim.diagnostic.severity.WARN] = "Warn",
+            [vim.diagnostic.severity.INFO] = "Info",
+            [vim.diagnostic.severity.HINT] = "Hint",
+          },
+          numhl = {
+            [vim.diagnostic.severity.ERROR] = "",
+            [vim.diagnostic.severity.WARN] = "",
+            [vim.diagnostic.severity.INFO] = "",
+            [vim.diagnostic.severity.HINT] = "",
+          },
+        },
+      })
 
       vim.lsp.config('*', {
         capabilites = require('cmp_nvim_lsp').default_capabilities(),
@@ -47,6 +73,34 @@ return {
         }
       })
 
+      require("vim.lsp.protocol").CompletionItemKind = {
+        "", -- Text
+        "0", -- Method
+        "0", -- Function
+        "", -- Constructor
+        "", -- Field
+        "", -- Variable
+        "", -- Class
+        "ﰮ", -- Interface
+        "", -- Module
+        "", -- Property
+        "", -- Unit
+        "", -- Value
+        "了", -- Enum
+        "", -- Keyword
+        "﬌", -- Snippet
+        "", -- Color
+        "", -- File
+        "", -- Reference
+        "", -- Folder
+        "", -- EnumMember
+        "", -- Constant
+        "", -- Struct
+        "", -- Event
+        "ﬦ", -- Operator
+        "", -- TypeParameter
+      }
+
       require('mason').setup()
       require('mason-lspconfig').setup({
         ensure_installed = {
@@ -57,8 +111,7 @@ return {
           'ts_ls',
           'vuels',
           'pylsp',
-          'graphql',
-          'csharp_ls'
+          'graphql'
         },
       })
     end

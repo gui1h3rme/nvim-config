@@ -14,9 +14,9 @@ vim.o.foldmethod = 'expr'
 -- let tree-sitter define folds
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 
-vim.opt.listchars = { eol = '↵' }
+vim.opt.listchars = { eol = '↵', trail = '∙' }
 vim.opt.list = true
 vim.o.conceallevel = 2
 vim.o.cmdheight = 0
-
+    
 os.execute('rm ~/.local/state/nvim/lsp.log')
