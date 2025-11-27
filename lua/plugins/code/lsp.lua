@@ -7,28 +7,31 @@ return {
       'SmiteshP/nvim-navic',
     },
     config = function()
-      local on_attach_callback = function(client, buffer)
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = "Go to definition" })
-        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { desc = "Go to implementation" })
-        vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references, { desc = "Go to references" })
+      vim.api.nvim_create_autocmd('LspAttach', {
+        callback = function(ev)
+          local client = vim.lsp.get_client_by_id(ev.data.client_id)
 
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = "Show declaration" })
-        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, { desc = 'Show signature' })
-        vim.keymap.set('n', '<Space>D', vim.lsp.buf.type_definition, { desc = 'Show type definition' })
+          vim.keymap.set('n', '<Space>f', vim.lsp.buf.format, { desc = "Format code", buffer = ev.buf })
 
-        vim.keymap.set('n', '<Space>ca', vim.lsp.buf.code_action, { desc = 'Perform code actions' })
-        vim.keymap.set('n', '<Space>rn', vim.lsp.buf.rename, { desc = 'Rename definition' })
-        vim.keymap.set('n', '<Space>f', function()
-          vim.lsp.buf.format({
-            async = true,
-            timeout_ms = 10000,
-          })
-        end, { desc = 'Format code' })
+          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = "Go to definition", buffer = ev.buf })
+          vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { desc = "Go to implementation", buffer = ev.buf })
+          vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references, { desc = "Go to references", buffer = ev.buf })
 
-        if client.server_capabilities.documentSymbolProvider then
-          require('nvim-navic').attach(client, buffer)
+          vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = "Show declaration", buffer = ev.buf })
+          vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, { desc = 'Show signature', buffer = ev.buf })
+          vim.keymap.set('n', '<Space>D', vim.lsp.buf.type_definition, { desc = 'Show type definition', buffer = ev.buf })
+
+          vim.keymap.set('n', '<Space>ca', vim.lsp.buf.code_action, { desc = 'Perform code actions', buffer = ev.buf })
+          vim.keymap.set('n', '<Space>rn', vim.lsp.buf.rename, { desc = 'Rename definition', buffer = ev.buf })
+
+
+          if client.server_capabilities.documentSymbolProvider then
+            require('nvim-navic').attach(client, ev.buf)
+          end
         end
-      end
+      })
+      -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+      -- capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
       vim.diagnostic.config({
         virtual_lines = {
@@ -36,34 +39,20 @@ return {
         },
         signs = {
           text = {
-            [vim.diagnostic.severity.ERROR] = "",
-            [vim.diagnostic.severity.WARN] = "",
-            [vim.diagnostic.severity.INFO] = "󰋼",
-            [vim.diagnostic.severity.HINT] = "󰌵",
-          },
-          texthl = {
-            [vim.diagnostic.severity.ERROR] = "Error",
-            [vim.diagnostic.severity.WARN] = "Warn",
-            [vim.diagnostic.severity.INFO] = "Info",
-            [vim.diagnostic.severity.HINT] = "Hint",
-          },
-          numhl = {
-            [vim.diagnostic.severity.ERROR] = "",
-            [vim.diagnostic.severity.WARN] = "",
-            [vim.diagnostic.severity.INFO] = "",
-            [vim.diagnostic.severity.HINT] = "",
-          },
-        },
+            [vim.diagnostic.severity.ERROR] = "",
+            [vim.diagnostic.severity.WARN] = "",
+            [vim.diagnostic.severity.INFO] = "󰙎",
+            [vim.diagnostic.severity.HINT] = "",
+          }
+        }
       })
 
       vim.lsp.config('*', {
-        capabilites = require('cmp_nvim_lsp').default_capabilities(),
-        on_attach = on_attach_callback
+        --  capabilities = capabilities,
       })
 
       vim.lsp.config('lua_ls', {
-        capabilites = require('cmp_nvim_lsp').default_capabilities(),
-        on_attach = on_attach_callback,
+        --capabilities = capabilities,
         settings = {
           Lua = {
             diagnostics = {
@@ -72,34 +61,6 @@ return {
           }
         }
       })
-
-      require("vim.lsp.protocol").CompletionItemKind = {
-        "", -- Text
-        "0", -- Method
-        "0", -- Function
-        "", -- Constructor
-        "", -- Field
-        "", -- Variable
-        "", -- Class
-        "ﰮ", -- Interface
-        "", -- Module
-        "", -- Property
-        "", -- Unit
-        "", -- Value
-        "了", -- Enum
-        "", -- Keyword
-        "﬌", -- Snippet
-        "", -- Color
-        "", -- File
-        "", -- Reference
-        "", -- Folder
-        "", -- EnumMember
-        "", -- Constant
-        "", -- Struct
-        "", -- Event
-        "ﬦ", -- Operator
-        "", -- TypeParameter
-      }
 
       require('mason').setup()
       require('mason-lspconfig').setup({

@@ -1,17 +1,13 @@
 return {
-  'f-person/git-blame.nvim',
   {
     'lewis6991/gitsigns.nvim',
+    event = 'VimEnter',
     opts = {
-      signs = {
-        add = { text = "+" },
-        change = { text = "~" },
-        delete = { text = "-" },
-        changedelete = { text = "x" },
-        untracked = { text = "!" },
-      },
-    },
-    event = 'VimEnter'
+      numhl = true,
+      linehl = true,
+      current_line_blame = true
+    }
   },
+  'tpope/vim-rhubarb',
   'tpope/vim-fugitive',
 }
