@@ -1,3 +1,6 @@
+
+vim.g.fugitive_no_maps = 1
+
 require('config.keymaps')
 require('config.plugins')
 
@@ -19,4 +22,20 @@ vim.opt.list = true
 vim.o.conceallevel = 2
 vim.o.cmdheight = 0
     
+vim.g.mapleader = ' '
+vim.g.maplocaleader = ' '
+
+vim.opt.backspace = '2'
+vim.opt.showcmd = true
+vim.opt.laststatus = 2
+vim.opt.autowrite = true
+vim.opt.cursorline = true
+vim.opt.autoread = true
+
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.shiftround = true
+vim.opt.expandtab = true
+
+vim.wo.number = true
 os.execute('rm ~/.local/state/nvim/lsp.log')

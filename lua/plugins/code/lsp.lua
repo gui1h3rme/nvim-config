@@ -11,18 +11,18 @@ return {
         callback = function(ev)
           local client = vim.lsp.get_client_by_id(ev.data.client_id)
 
-          vim.keymap.set('n', '<Space>f', vim.lsp.buf.format, { desc = "Format code", buffer = ev.buf })
+          vim.keymap.set('n', '<Space>cf', vim.lsp.buf.format, { desc = "[F]ormat", buffer = ev.buf })
 
-          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = "Go to definition", buffer = ev.buf })
-          vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { desc = "Go to implementation", buffer = ev.buf })
-          vim.keymap.set('n', 'gr', require('fzf-lua').lsp_references, { desc = "Go to references", buffer = ev.buf })
+          vim.keymap.set('n', '<Space>cd', vim.lsp.buf.definition, { desc = "[D]efinition", buffer = ev.buf })
+          vim.keymap.set('n', '<Space>ci', vim.lsp.buf.implementation, { desc = "[I]mplementation", buffer = ev.buf })
+          vim.keymap.set('n', '<Space>cr', ':FzfLua lsp_references', { desc = "[R]eferences", buffer = ev.buf })
 
-          vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = "Show declaration", buffer = ev.buf })
-          vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, { desc = 'Show signature', buffer = ev.buf })
-          vim.keymap.set('n', '<Space>D', vim.lsp.buf.type_definition, { desc = 'Show type definition', buffer = ev.buf })
+          vim.keymap.set('n', '<Space>ce', vim.lsp.buf.hover, { desc = "[E]xpand", buffer = ev.buf })
+          vim.keymap.set('n', '<Space>cs', vim.lsp.buf.signature_help, { desc = '[S]ignature', buffer = ev.buf })
+          vim.keymap.set('n', '<Space>cD', vim.lsp.buf.type_definition, { desc = '[[D]]efinition', buffer = ev.buf })
 
-          vim.keymap.set('n', '<Space>ca', vim.lsp.buf.code_action, { desc = 'Perform code actions', buffer = ev.buf })
-          vim.keymap.set('n', '<Space>rn', vim.lsp.buf.rename, { desc = 'Rename definition', buffer = ev.buf })
+          vim.keymap.set('n', '<Space>ca', vim.lsp.buf.code_action, { desc = '[A]ctions', buffer = ev.buf })
+          vim.keymap.set('n', '<Space>cR', vim.lsp.buf.rename, { desc = '[[R]]ename', buffer = ev.buf })
 
 
           if client.server_capabilities.documentSymbolProvider then

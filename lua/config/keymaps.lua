@@ -1,66 +1,79 @@
-vim.g.mapleader = ' '
-vim.g.maplocaleader = ' '
+-- create main groups for normal mode
+vim.keymap.set('n', '<Space>p', '', { desc = '[P]aste' })
+vim.keymap.set('n', '<Space>f', '', { desc = '[F]ind' })
+vim.keymap.set('n', '<Space>g', '', { desc = '[G]it' })
+vim.keymap.set('n', '<Space>c', '', { desc = '[C]ode' })
 
-vim.opt.backspace = '2'
-vim.opt.showcmd = true
-vim.opt.laststatus = 2
-vim.opt.autowrite = true
-vim.opt.cursorline = true
-vim.opt.autoread = true
+-- copy menu
+vim.keymap.set('n', '<Space>pp', ':lua vim.fn.setreg(\'+\', vim.fn.expand(\'%.\'))<CR>', { desc = '[P]ath' })
+vim.keymap.set('n', '<Space>ppl',
+  ':lua vim.fn.setreg(\'+\', vim.fn.expand(\'%.\') .. ":" .. vim.api.nvim_win_get_cursor(0)[1])<CR>',
+  { desc = '[L]ine Number' })
 
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.shiftround = true
-vim.opt.expandtab = true
+-- find menu
+vim.keymap.set('n', '<Space>ff', ':FzfLua files<CR>', { desc = '[F]iles' })
+vim.keymap.set('n', '<Space>fg', ':FzfLua live_grep_glob<CR>', { desc = '[G]rep' })
+vim.keymap.set('n', '<Space>fr', ':FzfLua resume<CR>', { desc = '[R]esume' })
+vim.keymap.set('n', '<Space>fp', ':ProjectFzf<CR>', { desc = '[P]rojects' })
 
-vim.wo.number = true
+-- git menu
+vim.keymap.set('n', '<Space>go', ':Git<CR>', { desc = '[O]pen' })
 
-vim.keymap.set('n', 'ZW', ':w!<CR>')
--- Switch buffers
-vim.keymap.set('n', '<Space><Left>', '<C-w>h')
-vim.keymap.set('n', '<Space><Down>', '<C-w>j')
-vim.keymap.set('n', '<Space><Up>', '<C-w>k')
-vim.keymap.set('n', '<Space><Right>', '<C-w>l')
+-- create main groups for visual mode
+vim.keymap.set('v', '<Space>f', 'y:/<C-r>0/', { desc = '[F]ind' })
+vim.keymap.set('v', '<Space>c', '', { desc = '[C]opy' })
 
--- Move current buffer
-vim.keymap.set('n', '<Space><C-Left>', '<C-w>H')
-vim.keymap.set('n', '<Space><C-Down>', '<C-w>J')
-vim.keymap.set('n', '<Space><C-Up>', '<C-w>K')
-vim.keymap.set('n', '<Space><C-Right>', '<C-w>L')
+-- search menu
+vim.keymap.set('v', '<Space>fr', 'y:%s/<C-r>0/', { desc = '[R]eplace' })
 
--- Resize current buffer
-vim.keymap.set('n', '<S-Up>', '<C-w>-')
-vim.keymap.set('n', '<S-Down>', '<C-w>+')
-vim.keymap.set('n', '<S-Left>', '<C-w>>')
-vim.keymap.set('n', '<S-Right>', '<C-w><')
+-- copy menu
+vim.keymap.set('v', '<Space>pt', '<Cmd> execute "ToggleTermSendVisualSelection " . v:count1 . "" <CR>',
+  { desc = '[P]aste on Terminal' })
 
--- Split current buffer
-vim.keymap.set('n', '<C-Space-Up>', '<C-w>s')
-vim.keymap.set('n', '<C-Space-Down>', '<C-w>s')
-vim.keymap.set('n', '<C-Space-Left>', '<C-w>v')
-vim.keymap.set('n', '<C-Space-Right>', '<C-w>v')
+-- navigation
+vim.keymap.set('n', '<C-w><Left>', '<C-w>h', { desc = '[←] Switch' })
+vim.keymap.set('n', '<C-w><Down>', '<C-w>j', { desc = '[↓] Switch' })
+vim.keymap.set('n', '<C-w><Up>', '<C-w>k', { desc = '[↑] Switch' })
+vim.keymap.set('n', '<C-w><Right>', '<C-w>l', { desc = '[→] Switch' })
 
--- Quit current buffer
-vim.keymap.set('n', '<Space><ESC>', '<C-w>q')
+---- fugitive
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'fugitive' },
+  callback = function()
+    if not vim.g.fugitive_snr then
+      for line in vim.api.nvim_exec('scriptnames', true):gmatch("[^\n]+") do
+        local snr = line:gmatch("(%d+)")
+        if line:match("autoload/fugitive") then
+          vim.g.fugitive_snr = snr() .. '_'
+        end
+      end
+    end
 
--- Close Telescope popover
-vim.keymap.set('n', '<Esc>', '<Nop>')
+    vim.keymap.set('n', 'c', ':Git commit<CR>', { desc = '[C]ommit', buffer = true })
+    vim.keymap.set('n', 'ce', ':Git commit --amend<CR>', { desc = '[C]ommit [E]dit', buffer = true })
+    vim.keymap.set('n', 'q', '<C-w>q', { desc = '[Q]uit', buffer = true })
 
--- Copy relative path
-vim.keymap.set('n', '<Space>pr', ':lua vim.fn.setreg(\'+\', vim.fn.expand(\'%.\'))<CR>')
-vim.keymap.set('n', '<Space>pa', ':lua vim.fn.setreg(\'+\', vim.fn.expand(\'%:p\'))<CR>')
+    local function fugitive_map(mode, keys, cmd, desc)
+      vim.keymap.set(mode, keys, ':<C-U>execute <SNR>' .. vim.g.fugitive_snr .. cmd .. '<CR>',
+        { desc = desc, buffer = true, silent = true })
+    end
 
--- Terminal Past
-vim.keymap.set('v', '<Space>tp', '<Cmd> execute "ToggleTermSendVisualSelection " . v:count1 . "" <CR>')
+    fugitive_map('x', 's', [[Do('Toggle',1)]], '[S]tage Toggle')
+    fugitive_map('n', 's', [[Do('Toggle',0)]], '[S]tage Toggle')
+    fugitive_map('x', 'r', [[StageDelete(line("'<"), line("'>"), v:count)]], '[R]emove')
+    fugitive_map('n', 'r', [[StageDelete(line('.'), 0, v:count)]], '[R]emove')
+    fugitive_map('x', 'e', [[StageInline('toggle', line("'<"), line("'>") - line("'<") + 1)]], '[E]xpand')
+    fugitive_map('n', 'e', [[StageInline('toggle', line('.'), v:count)]], '[E]xpand')
+  end
+})
 
--- Replace selected text
-vim.keymap.set('v', '<Space>f', 'y:/<C-r>0/', { desc = 'Search/Visual' })
-
--- Search Fzf
-vim.keymap.set('n', '<Leader>ff', ':FzfLua files<CR>', { desc = "Search files" })
-vim.keymap.set('n', '<Leader>fg', ':FzfLua live_grep_glob<CR>', { desc = "Search files" })
-vim.keymap.set('n', '<Leader>fr', ':FzfLua resume<CR>', { desc = "Search resume" })
-vim.keymap.set('n', '<Leader>fp', ':ProjectFzf<CR>', { desc = "Search projects" })
-
--- Git
-vim.keymap.set('n', 'G', ':Git<CR>', { desc = 'Open Fugitive' })
+vim.api.nvim_create_autocmd('BufEnter', {
+  pattern = { 'fugitive://*', 'oil://*' },
+  callback = function()
+    if package.loaded['which-key'] then
+      require('which-key').show({
+        global = false,
+      })
+    end
+  end
+})

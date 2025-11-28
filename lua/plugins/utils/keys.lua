@@ -1,10 +1,10 @@
 return {
   'folke/which-key.nvim',
-  event = 'VeryLazy',
   opts = {
-    preset = 'modern'
-  },
-  keys = {
-    { '<Space>?', ':WhichKey<CR>', desc = 'Show Keymaps Available' }
+    delay = 0,
+    preset = 'helix',
+    filter = function(mapping)
+      return mapping.desc and mapping.desc ~= ""
+    end
   }
 }
