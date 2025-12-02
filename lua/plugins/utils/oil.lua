@@ -5,13 +5,7 @@ return {
   },
   opts = {},
   keys = {
-    {
-      '-',
-      function()
-        require('oil').open()
-      end,
-      desc = 'Open parent directory'
-    },
+    { '-', ':Oil<CR>', desc = 'Open parent directory' },
   },
-  event = 'VeryLazy'
+  lazy = false
 }

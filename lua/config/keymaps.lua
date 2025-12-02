@@ -21,10 +21,14 @@ vim.keymap.set('n', '<Space>go', ':Git<CR>', { desc = '[O]pen' })
 
 -- create main groups for visual mode
 vim.keymap.set('v', '<Space>f', 'y:/<C-r>0/', { desc = '[F]ind' })
-vim.keymap.set('v', '<Space>c', '', { desc = '[C]opy' })
+vim.keymap.set('v', '<Space>F', ':/\\%V', { desc = '[F]ind in Selection' })
+vim.keymap.set('v', '<Space>p', '', { desc = '[P]aste' })
 
 -- search menu
-vim.keymap.set('v', '<Space>fr', 'y:%s/<C-r>0/', { desc = '[R]eplace' })
+vim.keymap.set('v', '<Space>fr', 'y:%s/<C-r>0//g<Left><Left>', { desc = '[R]eplace' })
+
+-- search in selection menu
+vim.keymap.set('v', '<Space>Fr', [[:s///g<Left><Left><Left>]], { desc = '[R]eplace' })
 
 -- copy menu
 vim.keymap.set('v', '<Space>pt', '<Cmd> execute "ToggleTermSendVisualSelection " . v:count1 . "" <CR>',
@@ -35,6 +39,11 @@ vim.keymap.set('n', '<C-w><Left>', '<C-w>h', { desc = '[←] Switch' })
 vim.keymap.set('n', '<C-w><Down>', '<C-w>j', { desc = '[↓] Switch' })
 vim.keymap.set('n', '<C-w><Up>', '<C-w>k', { desc = '[↑] Switch' })
 vim.keymap.set('n', '<C-w><Right>', '<C-w>l', { desc = '[→] Switch' })
+
+vim.keymap.set('n', '<C-=>', '<C-w>+', { desc = '[+] Height' })
+vim.keymap.set('n', '<C-->', '<C-w>-', { desc = '[-] Height' })
+vim.keymap.set('n', '<C-.>', '<C-w>>', { desc = '[+] Width' })
+vim.keymap.set('n', '<C-,>', '<C-w><', { desc = '[-] Width' })
 
 ---- fugitive
 vim.api.nvim_create_autocmd('FileType', {
