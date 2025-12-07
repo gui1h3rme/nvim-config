@@ -3,6 +3,7 @@ vim.keymap.set('n', '<Space>p', '', { desc = '[P]aste' })
 vim.keymap.set('n', '<Space>f', '', { desc = '[F]ind' })
 vim.keymap.set('n', '<Space>g', '', { desc = '[G]it' })
 vim.keymap.set('n', '<Space>c', '', { desc = '[C]ode' })
+vim.keymap.set('n', '<Space>t', ':TestNearest<CR>', { desc = '[T]est' })
 
 -- copy menu
 vim.keymap.set('n', '<Space>pp', ':lua vim.fn.setreg(\'+\', vim.fn.expand(\'%.\'))<CR>', { desc = '[P]ath' })
@@ -19,6 +20,13 @@ vim.keymap.set('n', '<Space>fp', ':ProjectFzf<CR>', { desc = '[P]rojects' })
 -- git menu
 vim.keymap.set('n', '<Space>go', ':Git<CR>', { desc = '[O]pen' })
 
+-- test menu
+vim.keymap.set('n', '<Space>tf', ':TestFile<CR>', { desc = '[F]ile' })
+vim.keymap.set('n', '<Space>ts', ':TestSuite<CR>', { desc = '[S]uite' })
+vim.keymap.set('n', '<Space>tl', ':TestLast<CR>', { desc = '[L]ast' })
+vim.keymap.set('n', '<Space>tv', ':TestVisit<CR>', { desc = '[V]isit' })
+vim.keymap.set('n', '<Space>tc', ':TestClass<CR>', { desc = '[C]lass' })
+
 -- create main groups for visual mode
 vim.keymap.set('v', '<Space>f', 'y:/<C-r>0/', { desc = '[F]ind' })
 vim.keymap.set('v', '<Space>F', ':/\\%V', { desc = '[F]ind in Selection' })
@@ -33,6 +41,7 @@ vim.keymap.set('v', '<Space>Fr', [[:s///g<Left><Left><Left>]], { desc = '[R]epla
 -- copy menu
 vim.keymap.set('v', '<Space>pt', '<Cmd> execute "ToggleTermSendVisualSelection " . v:count1 . "" <CR>',
   { desc = '[P]aste on Terminal' })
+
 
 -- navigation
 vim.keymap.set('n', '<C-w><Left>', '<C-w>h', { desc = '[←] Switch' })

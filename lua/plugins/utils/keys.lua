@@ -5,6 +5,12 @@ return {
     preset = 'helix',
     filter = function(mapping)
       return mapping.desc and mapping.desc ~= ""
-    end
+    end,
+    plugins = {
+      presets = {
+        windows = false,
+        nav = false
+      }
+    }
   }
 }

@@ -1,5 +1,5 @@
 local options = {
-  size = 10,
+  size = 25,
   open_mapping = [[<C-/>]],
   start_in_insert = true,
   direction = 'horizontal'
