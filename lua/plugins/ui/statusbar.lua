@@ -1,3 +1,29 @@
+local dap_status = {
+  function()
+    local status = require('dap').status()
+    if status:match('Stopped at') then
+      return "Stopped"
+    elseif status:match('stopped') then
+      return "Paused"
+    elseif status == "Running" or status:match('Running') then
+      return "Running"
+    elseif status ~= "" then
+      return status
+    end
+
+    return ""
+  end,
+  function()
+    if package.loaded['dap'] == nil then
+      return false
+    end
+
+    return require('dap').session() ~= nil
+  end,
+  color = { fg = require('nightfox.palette.nightfox').palette.orange.base },
+  icon = ""
+}
+
 return {
   'nvim-lualine/lualine.nvim',
   dependencies = {
@@ -46,30 +72,7 @@ return {
           { 'filename', path = 1 },
           require('recorder').recordingStatus,
           require('recorder').displaySlots,
-          { function()
-            local status = require('dap').status()
-            if status:match('Stopped at') then
-              return "Stopped"
-            elseif status:match('stopped') then
-              return "Paused"
-            elseif status == "Running" or status:match('Running') then
-              return "Running"
-            elseif status ~= "" then
-              return status
-            end
-
-            return ""
-          end,
-            function()
-              if package.loaded['dap'] == nil then
-                return false
-              end
-
-              return require('dap').session() ~= nil
-            end,
-            color = { fg = require('nightfox.palette.nightfox').palette.orange.base },
-            icon = ""
-          }
+          dap_status
         },
         lualine_x = { 'navic', 'diagnostics', 'location' },
         lualine_y = { 'encoding', 'fileformat', { 'filetype', icon = nil } },

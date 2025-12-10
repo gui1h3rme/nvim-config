@@ -4,7 +4,7 @@ vim.keymap.set('n', '<Space>f', '', { desc = '[F]ind' })
 vim.keymap.set('n', '<Space>g', '', { desc = '[G]it' })
 vim.keymap.set('n', '<Space>c', '', { desc = '[C]ode' })
 vim.keymap.set('n', '<Space>t', ':TestNearest<CR>', { desc = '[T]est' })
-vim.keymap.set('n', '<Space>d', '', { desc = '[D]ebbug' })
+vim.keymap.set('n', '<Space>d', ':DapContinue<CR>', { desc = '[D]ebbug' })
 
 -- copy menu
 vim.keymap.set('n', '<Space>pp', ':lua vim.fn.setreg(\'+\', vim.fn.expand(\'%.\'))<CR>', { desc = '[P]ath' })
@@ -29,8 +29,7 @@ vim.keymap.set('n', '<Space>tv', ':TestVisit<CR>', { desc = '[V]isit' })
 vim.keymap.set('n', '<Space>tc', ':TestClass<CR>', { desc = '[C]lass' })
 
 -- debbuger menu
-vim.keymap.set('n',  '<Space>db', ':DapToggleBreakpoint<CR>', { desc = '[B]reakpoint' })
-vim.keymap.set('n',  '<Space>dc', ':DapContinue<CR>', { desc = '[C]ontinue' })
+vim.keymap.set('n',  '<Space>d/', ':DapToggleBreakpoint<CR>', { desc = '[?] Breakpoint' })
 
 -- create main groups for visual mode
 vim.keymap.set('v', '<Space>f', 'y:/<C-r>0/', { desc = '[F]ind' })
