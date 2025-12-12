@@ -29,7 +29,7 @@ vim.keymap.set('n', '<Space>tv', ':TestVisit<CR>', { desc = '[V]isit' })
 vim.keymap.set('n', '<Space>tc', ':TestClass<CR>', { desc = '[C]lass' })
 
 -- debbuger menu
-vim.keymap.set('n',  '<Space>d/', ':DapToggleBreakpoint<CR>', { desc = '[?] Breakpoint' })
+vim.keymap.set('n', '<Space>d/', ':DapToggleBreakpoint<CR>', { desc = '[?] Breakpoint' })
 
 -- create main groups for visual mode
 vim.keymap.set('v', '<Space>f', 'y:/<C-r>0/', { desc = '[F]ind' })
@@ -96,6 +96,30 @@ vim.api.nvim_create_autocmd('BufEnter', {
       require('which-key').show({
         global = false,
       })
+    end
+  end
+})
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+
+    vim.keymap.set('n', '<Space>cf', vim.lsp.buf.format, { desc = "[F]ormat", buffer = ev.buf })
+
+    vim.keymap.set('n', '<Space>cd', vim.lsp.buf.definition, { desc = "[D]efinition", buffer = ev.buf })
+    vim.keymap.set('n', '<Space>ci', vim.lsp.buf.implementation, { desc = "[I]mplementation", buffer = ev.buf })
+    vim.keymap.set('n', '<Space>cr', ':FzfLua lsp_references', { desc = "[R]eferences", buffer = ev.buf })
+
+    vim.keymap.set('n', '<Space>ce', vim.lsp.buf.hover, { desc = "[E]xpand", buffer = ev.buf })
+    vim.keymap.set('n', '<Space>cs', vim.lsp.buf.signature_help, { desc = '[S]ignature', buffer = ev.buf })
+    vim.keymap.set('n', '<Space>cD', vim.lsp.buf.type_definition, { desc = '[[D]]efinition', buffer = ev.buf })
+
+    vim.keymap.set('n', '<Space>ca', vim.lsp.buf.code_action, { desc = '[A]ctions', buffer = ev.buf })
+    vim.keymap.set('n', '<Space>cR', vim.lsp.buf.rename, { desc = '[[R]]ename', buffer = ev.buf })
+
+
+    if client.server_capabilities.documentSymbolProvider then
+      require('nvim-navic').attach(client, ev.buf)
     end
   end
 })

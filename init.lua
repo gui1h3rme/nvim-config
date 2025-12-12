@@ -1,4 +1,3 @@
-
 vim.g.fugitive_no_maps = 1
 
 require('config.keymaps')
@@ -21,7 +20,7 @@ vim.opt.listchars = { eol = '↵', trail = '∙' }
 vim.opt.list = true
 vim.o.conceallevel = 2
 vim.o.cmdheight = 0
-    
+
 vim.g.mapleader = ' '
 vim.g.maplocaleader = ' '
 
@@ -38,4 +37,19 @@ vim.opt.shiftround = true
 vim.opt.expandtab = true
 
 vim.wo.number = true
+
+vim.diagnostic.config({
+  virtual_lines = {
+    current_line = true
+  },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "",
+      [vim.diagnostic.severity.WARN] = "",
+      [vim.diagnostic.severity.INFO] = "󰙎",
+      [vim.diagnostic.severity.HINT] = "",
+    }
+  }
+})
+
 os.execute('rm ~/.local/state/nvim/lsp.log')

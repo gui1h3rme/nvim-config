@@ -24,24 +24,20 @@ local dap_status = {
   icon = ""
 }
 
+local macro_status = {
+  function ()
+    return "[" .. vim.fn.reg_recording() .. "]"
+  end,
+  cond = function ()
+    return vim.fn.reg_recording() ~= ""
+  end,
+  color = { fg = require('nightfox.palette.nightfox').palette.red.base },
+  icon = '@'
+}
+
 return {
   'nvim-lualine/lualine.nvim',
-  dependencies = {
-    "chrisgrieser/nvim-recorder",
-    dependencies = "rcarriga/nvim-notify",
-    keys = {
-      -- these must match the keys in the mapping config below
-      { "q", desc = " Start Recording" },
-      { "Q", desc = " Play Recording" },
-    }
-  },
   config = function()
-    require("recorder").setup({
-      mapping = {
-        startStopRecording = "q",
-        playMacro = "Q",
-      },
-    })
 
     require('lualine').setup {
       options = {
@@ -70,8 +66,7 @@ return {
         },
         lualine_c = {
           { 'filename', path = 1 },
-          require('recorder').recordingStatus,
-          require('recorder').displaySlots,
+          macro_status,
           dap_status
         },
         lualine_x = { 'navic', 'diagnostics', 'location' },
