@@ -103,6 +103,13 @@ vim.api.nvim_create_autocmd('BufEnter', {
   end
 })
 
+vim.api.nvim_create_autocmd('TermOpen', {
+  pattern = { 'term://*' },
+  callback = function ()
+    vim.keymap.set('t', '<ESC>', '<C-\\><C-n>', { buffer = 0 })
+  end
+})
+
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
