@@ -58,6 +58,9 @@ vim.keymap.set('n', '<C-->', '<C-w>-', { desc = '[-] Height' })
 vim.keymap.set('n', '<C-.>', '<C-w>>', { desc = '[+] Width' })
 vim.keymap.set('n', '<C-,>', '<C-w><', { desc = '[-] Width' })
 
+vim.keymap.set({'n', 'v', 'x'}, 'Y', '"+y')
+vim.keymap.set({'n', 'v', 'x'}, 'P', '"+p')
+
 ---- fugitive
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'fugitive' },

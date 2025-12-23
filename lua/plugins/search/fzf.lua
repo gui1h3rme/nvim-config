@@ -3,7 +3,20 @@ return {
     'ibhagwan/fzf-lua',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
-      fzf_opts = { ['--layout'] = 'reverse-list' }
+      fzf_opts = { ['--layout'] = 'reverse-list' },
+      file_ignore_patterns = {
+        "node_modules/",
+        "dist/",
+        ".next/",
+        ".git/",
+        ".gitlab/",
+        "build/",
+        "target/",
+        "package-lock.json",
+        "pnpm-lock.yaml",
+        "yarn.lock",
+      }
+
     }
   },
   {
@@ -21,4 +34,3 @@ return {
     opts = {}, -- Will call require('project-fzf').setup(opts)
   }
 }
-
