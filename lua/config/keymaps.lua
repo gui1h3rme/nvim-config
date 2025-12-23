@@ -103,10 +103,12 @@ vim.api.nvim_create_autocmd('BufEnter', {
   end
 })
 
+
+---- terminal
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = { 'term://*' },
   callback = function ()
-    vim.keymap.set('t', '<ESC>', '<C-\\><C-n>', { buffer = 0 })
+    vim.keymap.set('t', '<ESC>', [[ <C-\\><C-n> ]], { buffer = 0 })
   end
 })
 
