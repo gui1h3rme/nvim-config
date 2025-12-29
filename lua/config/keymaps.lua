@@ -20,6 +20,7 @@ vim.keymap.set('n', '<Space>fp', ':ProjectFzf<CR>', { desc = '[P]rojects' })
 
 -- git menu
 vim.keymap.set('n', '<Space>go', ':Git<CR>', { desc = '[O]pen' })
+vim.keymap.set('n', '<Space>gb', ':FzfLua git_branches<CR>', { desc =  '[B]ranches'})
 
 -- test menu
 vim.keymap.set('n', '<Space>tf', ':TestFile<CR>', { desc = '[F]ile' })
@@ -52,6 +53,10 @@ vim.keymap.set('n', '<C-w><Left>', '<C-w>h', { desc = '[←] Switch' })
 vim.keymap.set('n', '<C-w><Down>', '<C-w>j', { desc = '[↓] Switch' })
 vim.keymap.set('n', '<C-w><Up>', '<C-w>k', { desc = '[↑] Switch' })
 vim.keymap.set('n', '<C-w><Right>', '<C-w>l', { desc = '[→] Switch' })
+
+vim.keymap.set('n', '<C-q>', ':q!<CR>', { desc = '[Q]uit' })
+vim.keymap.set('n', '<C-w>', ':w!<CR>', { desc = '[W]rite' })
+vim.keymap.set('n', '<C-e>', ':wq!<CR>', { desc = '[E] Write and Quit'})
 
 vim.keymap.set('n', '<C-=>', '<C-w>+', { desc = '[+] Height' })
 vim.keymap.set('n', '<C-->', '<C-w>-', { desc = '[-] Height' })

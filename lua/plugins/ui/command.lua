@@ -18,6 +18,9 @@ return {
           row = '95%'
         }
       },
+    },
+    presets = {
+      lsp_doc_border = true
     }
   },
   dependencies = {
