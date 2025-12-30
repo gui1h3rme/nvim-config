@@ -82,6 +82,7 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', 'c', ':Git commit<CR>', { desc = '[C]ommit', buffer = true })
     vim.keymap.set('n', 'ce', ':Git commit --amend<CR>', { desc = '[C]ommit [E]dit', buffer = true })
     vim.keymap.set('n', 'q', '<C-w>q', { desc = '[Q]uit', buffer = true })
+    vim.keymap.set('n', 'P', ':Git push origin ' .. vim.fn.system('git branch --show-current | tr -d "\\n"'), { desc = '[P]ush'})
 
     local function fugitive_map(mode, keys, cmd, desc)
       vim.keymap.set(mode, keys, ':<C-U>execute <SNR>' .. vim.g.fugitive_snr .. cmd .. '<CR>',
