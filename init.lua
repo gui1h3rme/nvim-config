@@ -14,7 +14,7 @@ vim.o.foldlevelstart = 99
 --  folds are defined by a user-defined expression (tree-sitter)
 vim.o.foldmethod = 'expr'
 -- let tree-sitter define folds
-vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
 vim.opt.listchars = { eol = '↵', trail = '∙' }
 vim.opt.list = true
