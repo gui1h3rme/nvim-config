@@ -1,70 +1,76 @@
+local map = function(modes, lhs, rhs, opts)
+  vim.keymap.set(modes, lhs, rhs, vim.tbl_deep_extend('force', { silent = true }, opts))
+end
+
 -- create main groups for normal mode
-vim.keymap.set('n', '<Space>p', '', { desc = '[P]aste' })
-vim.keymap.set('n', '<Space>f', '', { desc = '[F]ind' })
-vim.keymap.set('n', '<Space>g', '', { desc = '[G]it' })
-vim.keymap.set('n', '<Space>c', '', { desc = '[C]ode' })
-vim.keymap.set('n', '<Space>t', ':TestNearest<CR>', { desc = '[T]est' })
-vim.keymap.set('n', '<Space>d', ':DapContinue<CR>', { desc = '[D]ebbug' })
+map('n', '<Space>p', '', { desc = '[P]aste' })
+map('n', '<Space>f', '', { desc = '[F]ind' })
+map('n', '<Space>g', ':Git<CR>', { desc = '[G]it' })
+map('n', '<Space>c', '', { desc = '[C]ode' })
+map('n', '<Space>t', ':TestNearest<CR>', { desc = '[T]est' })
+map('n', '<Space>d', ':DapContinue<CR>', { desc = '[D]ebbug' })
 
 -- copy menu
-vim.keymap.set('n', '<Space>pp', ':lua vim.fn.setreg(\'+\', vim.fn.expand(\'%.\'))<CR>', { desc = '[P]ath' })
-vim.keymap.set('n', '<Space>ppl',
+map('n', '<Space>pp', ':lua vim.fn.setreg(\'+\', vim.fn.expand(\'%.\'))<CR>', { desc = '[P]ath' })
+map('n', '<Space>ppl',
   ':lua vim.fn.setreg(\'+\', vim.fn.expand(\'%.\') .. ":" .. vim.api.nvim_win_get_cursor(0)[1])<CR>',
   { desc = '[L]ine Number' })
 
 -- find menu
-vim.keymap.set('n', '<Space>ff', ':FzfLua files<CR>', { desc = '[F]iles' })
-vim.keymap.set('n', '<Space>fg', ':FzfLua live_grep_glob<CR>', { desc = '[G]rep' })
-vim.keymap.set('n', '<Space>fr', ':FzfLua resume<CR>', { desc = '[R]esume' })
-vim.keymap.set('n', '<Space>fp', ':ProjectFzf<CR>', { desc = '[P]rojects' })
+map('n', '<Space>ff', ':FzfLua files<CR>', { desc = '[F]iles' })
+map('n', '<Space>fg', ':FzfLua live_grep_glob<CR>', { desc = '[G]rep' })
+map('n', '<Space>fr', ':FzfLua resume<CR>', { desc = '[R]esume' })
+map('n', '<Space>fp', ':ProjectFzf<CR>', { desc = '[P]rojects' })
 
 -- git menu
-vim.keymap.set('n', '<Space>go', ':Git<CR>', { desc = '[O]pen' })
-vim.keymap.set('n', '<Space>gb', ':FzfLua git_branches<CR>', { desc =  '[B]ranches'})
+map('n', '<Space>gb', ':FzfLua git_branches<CR>', { desc = '[B]ranches' })
+map('n', '<Space>gP', ':Git push origin ' .. vim.fn.system('git branch --show-current | tr -d "\\n"'),
+  { desc = '[P]ush', silent = false })
+map('n', '<Space>gp', ':Git pull<CR>', { desc = '[P] Pull'})
 
 -- test menu
-vim.keymap.set('n', '<Space>tf', ':TestFile<CR>', { desc = '[F]ile' })
-vim.keymap.set('n', '<Space>ts', ':TestSuite<CR>', { desc = '[S]uite' })
-vim.keymap.set('n', '<Space>tl', ':TestLast<CR>', { desc = '[L]ast' })
-vim.keymap.set('n', '<Space>tv', ':TestVisit<CR>', { desc = '[V]isit' })
-vim.keymap.set('n', '<Space>tc', ':TestClass<CR>', { desc = '[C]lass' })
+map('n', '<Space>tf', ':TestFile<CR>', { desc = '[F]ile' })
+map('n', '<Space>ts', ':TestSuite<CR>', { desc = '[S]uite' })
+map('n', '<Space>tl', ':TestLast<CR>', { desc = '[L]ast' })
+map('n', '<Space>tv', ':TestVisit<CR>', { desc = '[V]isit' })
+map('n', '<Space>tc', ':TestClass<CR>', { desc = '[C]lass' })
 
 -- debbuger menu
-vim.keymap.set('n', '<Space>d/', ':DapToggleBreakpoint<CR>', { desc = '[?] Breakpoint' })
+map('n', '<Space>d/', ':DapToggleBreakpoint<CR>', { desc = '[?] Breakpoint' })
 
 -- create main groups for visual mode
-vim.keymap.set('v', '<Space>f', 'y:/<C-r>0/', { desc = '[F]ind' })
-vim.keymap.set('v', '<Space>F', ':/\\%V', { desc = '[F]ind in Selection' })
-vim.keymap.set('v', '<Space>p', '', { desc = '[P]aste' })
+map('v', '<Space>f', 'y:/<C-r>0/', { desc = '[F]ind', silent = false })
+map('v', '<Space>F', ':/\\%V', { desc = '[F]ind in Selection', silent = false })
+map('v', '<Space>p', '', { desc = '[P]aste', silent = false })
 
 -- search menu
-vim.keymap.set('v', '<Space>fr', 'y:%s/<C-r>0//g<Left><Left>', { desc = '[R]eplace' })
+map('v', '<Space>fr', 'y:%s/<C-r>0//g<Left><Left>', { desc = '[R]eplace', silent = false })
 
 -- search in selection menu
-vim.keymap.set('v', '<Space>Fr', [[:s///g<Left><Left><Left>]], { desc = '[R]eplace' })
+map('v', '<Space>Fr', [[:s///g<Left><Left><Left>]], { desc = '[R]eplace', silent = false })
 
 -- copy menu
-vim.keymap.set('v', '<Space>pt', '<Cmd> execute "ToggleTermSendVisualSelection " . v:count1 . "" <CR>',
+map('v', '<Space>pt', '<Cmd> execute "ToggleTermSendVisualSelection " . v:count1 . "" <CR>',
   { desc = '[P]aste on Terminal' })
 
 
 -- navigation
-vim.keymap.set('n', '<C-w><Left>', '<C-w>h', { desc = '[←] Switch' })
-vim.keymap.set('n', '<C-w><Down>', '<C-w>j', { desc = '[↓] Switch' })
-vim.keymap.set('n', '<C-w><Up>', '<C-w>k', { desc = '[↑] Switch' })
-vim.keymap.set('n', '<C-w><Right>', '<C-w>l', { desc = '[→] Switch' })
+map('n', '<C-w><Left>', '<C-w>h', { desc = '[←] Switch' })
+map('n', '<C-w><Down>', '<C-w>j', { desc = '[↓] Switch' })
+map('n', '<C-w><Up>', '<C-w>k', { desc = '[↑] Switch' })
+map('n', '<C-w><Right>', '<C-w>l', { desc = '[→] Switch' })
 
-vim.keymap.set('n', '<C-q>', ':q!<CR>', { desc = '[Q]uit' })
-vim.keymap.set('n', '<C-w>', ':w!<CR>', { desc = '[W]rite' })
-vim.keymap.set('n', '<C-e>', ':wq!<CR>', { desc = '[E] Write and Quit'})
+map('n', '<C-q>', ':q!<CR>', { desc = '[Q]uit' })
+map('n', '<C-w>', ':w!<CR>', { desc = '[W]rite' })
+map('n', '<C-e>', ':wq!<CR>', { desc = '[E] Write and Quit' })
 
-vim.keymap.set('n', '<C-=>', '<C-w>+', { desc = '[+] Height' })
-vim.keymap.set('n', '<C-->', '<C-w>-', { desc = '[-] Height' })
-vim.keymap.set('n', '<C-.>', '<C-w>>', { desc = '[+] Width' })
-vim.keymap.set('n', '<C-,>', '<C-w><', { desc = '[-] Width' })
+map('n', '<C-=>', '<C-w>+', { desc = '[+] Height' })
+map('n', '<C-->', '<C-w>-', { desc = '[-] Height' })
+map('n', '<C-.>', '<C-w>>', { desc = '[+] Width' })
+map('n', '<C-,>', '<C-w><', { desc = '[-] Width' })
 
-vim.keymap.set({'n', 'v', 'x'}, 'Y', '"+y')
-vim.keymap.set({'n', 'v', 'x'}, 'P', '"+p')
+map({ 'n', 'v', 'x' }, 'Y', '"+y', { desc = '[Y] Yank' })
+map({ 'n', 'v', 'x' }, 'P', '"+p', { desc = '[P] Paste' })
 
 ---- fugitive
 vim.api.nvim_create_autocmd('FileType', {
@@ -79,13 +85,12 @@ vim.api.nvim_create_autocmd('FileType', {
       end
     end
 
-    vim.keymap.set('n', 'c', ':Git commit<CR>', { desc = '[C]ommit', buffer = true })
-    vim.keymap.set('n', 'ce', ':Git commit --amend<CR>', { desc = '[C]ommit [E]dit', buffer = true })
-    vim.keymap.set('n', 'q', '<C-w>q', { desc = '[Q]uit', buffer = true })
-    vim.keymap.set('n', 'P', ':Git push origin ' .. vim.fn.system('git branch --show-current | tr -d "\\n"'), { desc = '[P]ush'})
+    map('n', 'c', ':Git commit<CR>', { desc = '[C]ommit', buffer = true })
+    map('n', 'ce', ':Git commit --amend<CR>', { desc = '[C]ommit [E]dit', buffer = true })
+    map('n', 'q', '<C-w>q', { desc = '[Q]uit', buffer = true })
 
     local function fugitive_map(mode, keys, cmd, desc)
-      vim.keymap.set(mode, keys, ':<C-U>execute <SNR>' .. vim.g.fugitive_snr .. cmd .. '<CR>',
+      map(mode, keys, ':<C-U>execute <SNR>' .. vim.g.fugitive_snr .. cmd .. '<CR>',
         { desc = desc, buffer = true, silent = true })
     end
 
@@ -113,8 +118,8 @@ vim.api.nvim_create_autocmd('BufEnter', {
 ---- terminal
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = { 'term://*' },
-  callback = function ()
-    vim.keymap.set('t', '<ESC>', [[ <C-\><C-n> ]], { buffer = 0 })
+  callback = function()
+    map('t', '<ESC>', [[ <C-\><C-n> ]], { buffer = 0 })
   end
 })
 
@@ -122,18 +127,18 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
 
-    vim.keymap.set('n', '<Space>cf', vim.lsp.buf.format, { desc = "[F]ormat", buffer = ev.buf })
+    map('n', '<Space>cf', vim.lsp.buf.format, { desc = "[F]ormat", buffer = ev.buf })
 
-    vim.keymap.set('n', '<Space>cd', vim.lsp.buf.definition, { desc = "[D]efinition", buffer = ev.buf })
-    vim.keymap.set('n', '<Space>ci', vim.lsp.buf.implementation, { desc = "[I]mplementation", buffer = ev.buf })
-    vim.keymap.set('n', '<Space>cr', ':FzfLua lsp_references', { desc = "[R]eferences", buffer = ev.buf })
+    map('n', '<Space>cd', vim.lsp.buf.definition, { desc = "[D]efinition", buffer = ev.buf })
+    map('n', '<Space>ci', vim.lsp.buf.implementation, { desc = "[I]mplementation", buffer = ev.buf })
+    map('n', '<Space>cr', ':FzfLua lsp_references', { desc = "[R]eferences", buffer = ev.buf })
 
-    vim.keymap.set('n', '<Space>ce', vim.lsp.buf.hover, { desc = "[E]xpand", buffer = ev.buf })
-    vim.keymap.set('n', '<Space>cs', vim.lsp.buf.signature_help, { desc = '[S]ignature', buffer = ev.buf })
-    vim.keymap.set('n', '<Space>cD', vim.lsp.buf.type_definition, { desc = '[[D]]efinition', buffer = ev.buf })
+    map('n', '<Space>ce', vim.lsp.buf.hover, { desc = "[E]xpand", buffer = ev.buf })
+    map('n', '<Space>cs', vim.lsp.buf.signature_help, { desc = '[S]ignature', buffer = ev.buf })
+    map('n', '<Space>cD', vim.lsp.buf.type_definition, { desc = '[[D]]efinition', buffer = ev.buf })
 
-    vim.keymap.set('n', '<Space>ca', vim.lsp.buf.code_action, { desc = '[A]ctions', buffer = ev.buf })
-    vim.keymap.set('n', '<Space>cR', vim.lsp.buf.rename, { desc = '[[R]]ename', buffer = ev.buf })
+    map('n', '<Space>ca', vim.lsp.buf.code_action, { desc = '[A]ctions', buffer = ev.buf })
+    map('n', '<Space>cR', vim.lsp.buf.rename, { desc = '[[R]]ename', buffer = ev.buf })
 
 
     if client.server_capabilities.documentSymbolProvider then
