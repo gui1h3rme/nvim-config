@@ -2,6 +2,8 @@ local map = function(modes, lhs, rhs, opts)
   vim.keymap.set(modes, lhs, rhs, vim.tbl_deep_extend('force', { silent = true }, opts))
 end
 
+vim.g.mapleader = ' '
+
 -- create main groups for normal mode
 map('n', '<Space>p', '', { desc = '[P]aste' })
 map('n', '<Space>f', '', { desc = '[F]ind' })
