@@ -9,12 +9,23 @@ return {
       'ts_ls',
       'vuels',
       'pylsp',
-      'graphql'
-    }
+      'graphql',
+    },
   },
   dependencies = {
-    { 'mason-org/mason.nvim', opts = {} },
+    {
+      'mason-org/mason.nvim',
+      lazy = true,
+      opts = {
+
+        registries = {
+          'github:mason-org/mason-registry',
+          'github:Crashdummyy/mason-registry'
+        }
+      }
+    },
     { 'neovim/nvim-lspconfig' },
-    { 'SmiteshP/nvim-navic' }
+    { 'SmiteshP/nvim-navic' },
+    { 'seblyng/roslyn.nvim' }
   },
 }
