@@ -42,6 +42,24 @@ return {
       end
     end
   },
+  { 'cohama/lexima.vim' },
+  {
+    'windwp/nvim-ts-autotag',
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require("nvim-ts-autotag").setup({
+        opts = {
+          enable_close = true,          -- Auto close tags
+          enable_rename = true,         -- Auto rename pairs of tags
+          enable_close_on_slash = false -- Auto close on trailing </
+        },
+        -- Override individual filetype configs (optional)
+        per_filetype = {
+          ["html"] = { enable_close = true }
+        }
+      })
+    end,
+  },
   { 'nvim-treesitter/nvim-treesitter-context' },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
@@ -55,9 +73,9 @@ return {
           -- You can choose the select mode (default is charwise 'v')
 
           selection_modes = {
-            ['@parameter.outer'] = 'v',         -- charwise
-            ['@function.outer'] = 'V',          -- linewise
-            ['@class.outer'] = '<c-v>',         -- blockwise
+            ['@parameter.outer'] = 'v', -- charwise
+            ['@function.outer'] = 'V',  -- linewise
+            ['@class.outer'] = '<c-v>', -- blockwise
           },
           include_surrounding_whitespace = false,
         },
@@ -135,7 +153,7 @@ return {
       end, { desc = '[S] Swap Next ' })
       vim.keymap.set("n", "<leader>S", function()
         swap.swap_previous "@parameter.outer"
-      end, { desc = '[S] Swap Previous'})
+      end, { desc = '[S] Swap Previous' })
 
       -- Go to either the start or the end, whichever is closer.
       -- Use if you want more granular movements

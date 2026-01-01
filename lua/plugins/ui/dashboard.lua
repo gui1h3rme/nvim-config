@@ -17,7 +17,7 @@ return {
   opts = {
     config = {
       header = vim.split(string.rep('\n', 2) .. logo, '\n'),
-      mru = { enable = false },
+      mru = { enable = true },
       project = {
         enable = true,
         limit = 20,
