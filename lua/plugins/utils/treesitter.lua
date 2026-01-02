@@ -178,5 +178,14 @@ return {
       vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t_expr, { expr = true })
       vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
     end,
+  },
+  { 'HiPhish/rainbow-delimiters.nvim' },
+  {
+    'Wansmer/treesj',
+    config = function()
+      require('treesj').setup()
+
+      vim.keymap.set('n', 't', ':TSJToggle<CR>',  { silent = true })
+    end
   }
 }
