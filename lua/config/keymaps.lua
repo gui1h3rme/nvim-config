@@ -51,7 +51,11 @@ map('v', '<Space>p', '', { desc = '[P]aste', silent = false })
 map('v', '<Space>fr', 'y:%s/<C-r>0//g<Left><Left>', { desc = '[R]eplace', silent = false })
 
 -- search in selection menu
-map('v', '<Space>Fr', [[:s///g<Left><Left><Left>]], { desc = '[R]eplace', silent = false })
+map('v', '<Space>Fr', function()
+  local left_key = vim.api.nvim_replace_termcodes("<Left>", true, false, true)
+  vim.api.nvim_feedkeys(':s/' .. vim.fn.getreg('0') .. '//g' .. left_key .. left_key, 'v', true)
+end
+, { desc = '[R]eplace', silent = false })
 
 -- copy menu
 map('v', '<Space>pt', '<Cmd> execute "ToggleTermSendVisualSelection " . v:count1 . "" <CR>',
@@ -75,6 +79,8 @@ map('n', '<C-,>', '<C-w><', { desc = '[-] Width' })
 
 map({ 'n', 'v', 'x' }, 'Y', '"+y', { desc = '[Y] Yank' })
 map({ 'n', 'v', 'x' }, 'P', '"+p', { desc = '[P] Paste' })
+
+map('n',  '<ESC>', ':noh<CR>', { desc = '[Esc] Clear Highlight' })
 
 ---- fugitive
 vim.api.nvim_create_autocmd('FileType', {
