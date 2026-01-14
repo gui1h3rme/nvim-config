@@ -26,6 +26,7 @@ map('n', '<Space>fp', ':ProjectFzf<CR>', { desc = '[P]rojects' })
 
 -- git menu
 map('n', '<Space>gb', ':FzfLua git_branches<CR>', { desc = '[B]ranches' })
+map('n', '<Space>gB', ':Gitsigns blame<CR>', { desc = '[B] Blame' })
 map('n', '<Space>gP',  function ()
   vim.api.nvim_feedkeys(':Git push origin ' .. vim.fn.system([[git branch --show-current | tr -d '\n']]), 'n', true)
 end,
