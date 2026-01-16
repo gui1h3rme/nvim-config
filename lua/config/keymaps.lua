@@ -2,14 +2,12 @@ local map = function(modes, lhs, rhs, opts)
   vim.keymap.set(modes, lhs, rhs, vim.tbl_deep_extend('force', { silent = true }, opts))
 end
 
-local key = function (keystroke)
+local key = function(keystroke)
   return vim.api.nvim_replace_termcodes(keystroke, true, false, true)
 end
 
 local press = function(content)
-  return function()
-    return vim.api.nvim_feedkeys(content, 'n', true)
-  end
+  return vim.api.nvim_feedkeys(content, 'n', true)
 end
 
 vim.g.mapleader = ' '
@@ -27,14 +25,21 @@ map('v', '<Leader>fr', 'y:%s/<C-r>0//g<Left><Left>', { desc = 'Replace', silent 
 
 -- Find inside Selection
 map('v', '<Leader>F', [[:/\\%V]], { desc = 'Search inside Selection', silent = false })
-map('v', '<Leader>Fr', press(':s/' .. vim.fn.getreg('0') .. '//g' .. key('<Left>') .. key('<Left>')), { desc = 'Replace', silent = false })
+map('v', '<Leader>Fr', function()
+    press(':s/' .. vim.fn.getreg('0') .. '//g' .. key('<Left>') .. key('<Left>'))
+  end
+  ,
+  { desc = 'Replace', silent = false })
 
 -- Git
 map('n', '<Leader>g', ':Git<CR>', { desc = 'Git' })
 map('n', '<Leader>gb', ':FzfLua git_branches<CR>', { desc = 'Branches' })
 map('n', '<Leader>gB', ':Gitsigns blame<CR>', { desc = 'Blame' })
 map('n', '<Leader>gp', ':Git pull<CR>', { desc = 'Pull' })
-map('n', '<Leader>gP', press(':Git push origin ' .. vim.fn.system([[git branch --show-current | tr -d '\n']])), { desc = 'Push', silent = false })
+map('n', '<Leader>gP',
+  function()
+    press(':Git push origin ' .. vim.fn.system([[git branch --show-current | tr -d '\n']]))
+  end, { desc = 'Push', silent = false })
 
 -- Test
 map('n', '<Leader>t', ':TestNearest<CR>', { desc = 'Test' })
@@ -130,15 +135,27 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
 
-    map('n', '<Leader>cf', vim.lsp.buf.format, { desc = "Format", buffer = ev.buf })
+    map('n', '<Leader>l', vim.lsp.buf.format, { desc = "Lint", buffer = ev.buf })
 
-    map('n', '<Leader>cd', vim.lsp.buf.definition, { desc = "Definition", buffer = ev.buf })
-    map('n', '<Leader>ci', vim.lsp.buf.implementation, { desc = "Implementation", buffer = ev.buf })
-    map('n', '<Leader>cr', ':FzfLua lsp_references', { desc = "References", buffer = ev.buf })
+    map('n', 'gd', ':FzfLua lsp_definitions<CR>', { desc = "Definitions", buffer = ev.buf })
+    map('n', 'gD', ':FzfLua lsp_typedefs<CR>', { desc = "Definitions", buffer = ev.buf })
+    map('n', 'gr', ':FzfLua lsp_references<CR>', { desc = "References", buffer = ev.buf })
+    map('n', 'gs', ':FzfLua lsp_document_symbols<CR>', { desc = "Document Symbols", buffer = ev.buf })
+    map('n', 'gS', ':FzfLua lsp_live_workspace_symbols<CR>', { desc = "Workspace Symbols", buffer = ev.buf })
+    map('n', 'gS', ':FzfLua lsp_implementations<CR>', { desc = "Implementations", buffer = ev.buf })
+    map('n', 'gh', ':FzfLua lsp_document_diagnostics<CR>', { desc = "Implementations", buffer = ev.buf, noremap = true })
 
-    map('n', '<Leader>ce', vim.lsp.buf.hover, { desc = "Expand", buffer = ev.buf })
-    map('n', '<Leader>cs', vim.lsp.buf.signature_help, { desc = 'Signature', buffer = ev.buf })
-    map('n', '<Leader>cD', vim.lsp.buf.type_definition, { desc = 'Definition', buffer = ev.buf })
+    map('n', 'gH', function()
+      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }), { bufnr = ev.buf })
+    end, { desc = 'Toogle Hints', noremap = true })
+
+    map('n', 'K', function()
+      vim.lsp.buf.hover({ border = 'rounded' })
+    end, { desc = "Expand", buffer = ev.buf, noremap = true })
+
+    map('n', '<C-s>', function()
+      vim.lsp.signature({ border = 'rounded' })
+    end, { desc = "Signature" })
 
     map('n', '<Leader>ca', vim.lsp.buf.code_action, { desc = 'Actions', buffer = ev.buf })
     map('n', '<Leader>cR', vim.lsp.buf.rename, { desc = 'Rename', buffer = ev.buf })
