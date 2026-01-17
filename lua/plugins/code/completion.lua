@@ -31,7 +31,7 @@ return {
 
       local mapping = {
         ['<Down>'] = {
-          c = function ()
+          c = function()
             if cmp.visible() then
               cmp.select_next_item()
             else
@@ -40,7 +40,7 @@ return {
           end
         },
         ['<Up>'] = {
-          c = function ()
+          c = function()
             if cmp.visible() then
               cmp.select_prev_item()
             else
@@ -53,30 +53,21 @@ return {
         }
       }
 
-      cmp.setup.cmdline('/',{
-        mapping = mapping,
-        sources = {
-          { name = 'buffer' }
-        }
-      })
-
-      cmp.setup.cmdline(':', {
-        mapping = mapping,
-        sources = cmp.config.sources({
-          { name = 'path' }
-        }, {
-          {
-            name = 'cmdline',
-            option = {
-              ignore_cmds = { 'Man', '!' }
-            }
-          }
-        })
-      })
 
       cmp.setup({
         window = {
-          completion = cmp.config.window.bordered(),
+          completion = cmp.config.window.bordered({
+            border = 'single',
+            col_offset = -1,
+            scrollbar = false,
+            scrolloff = 3,
+            winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None',
+          }),
+          documentation = cmp.config.window.bordered({
+            border = 'solid',
+            scrollbar = false,
+            winhighlight = 'CursorLine:Visual,Search:None',
+          }),
         },
         snippet = {
           expand = function(args)
@@ -92,14 +83,47 @@ return {
           ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' })
         }),
         sources = cmp.config.sources({
-          { name = 'copilot',  group_index = 2 },
-          { name = 'nvim_lsp', group_index = 2 },
-          { name = 'vsnip',    group_index = 2 },
-          { name = 'neorg',    group_index = 2 }
-        }, {
+          { name = 'copilot',  group_index = 1 },
+          { name = 'nvim_lsp', group_index = 1 },
+          { name = 'vsnip',    group_index = 1 },
+          { name = 'neorg',    group_index = 1 },
+          { name = 'buffer',   group_index = 3 }
+        })
+      })
+
+      cmp.setup.cmdline({ '/', '?' }, {
+        mapping = mapping,
+        completion = { keyword_length = 1 },
+        sources = {
           { name = 'buffer' },
+          { name = 'nvim_lsp_document_symbol' },
         }
-        )
+      })
+
+      cmp.setup.cmdline(':', {
+        mapping = mapping,
+        formatting = {
+          fields = { 'abbr' },
+          format = function(_, item)
+            item.kind = nil
+            return item
+          end
+        },
+        completion = { keyword_length = 1 },
+        sources = cmp.config.sources({
+          { name = 'path' },
+          {
+            name = 'cmdline',
+            option = {
+              ignore_cmds = { 'Man', '!' }
+            }
+          }
+        }),
+        window = {
+          completion = {
+            side_padding = 1
+          }
+        }
       })
     end
   }
