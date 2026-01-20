@@ -75,12 +75,12 @@ return {
           end
         },
         mapping = {
-          ['<C-CR>'] = cmp.mapping.confirm({
+          ['<Tab>'] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
-            select = true
+            select = false
           }),
-          ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
-          ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' })
+          ['<C-Down>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+          ['<C-Up>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' })
         },
         sources = cmp.config.sources({
           { name = 'copilot',  group_index = 1 },
