@@ -29,31 +29,6 @@ return {
 
       require('copilot_cmp').setup({})
 
-      local mapping = {
-        ['<Down>'] = {
-          c = function()
-            if cmp.visible() then
-              cmp.select_next_item()
-            else
-              cmp.complete()
-            end
-          end
-        },
-        ['<Up>'] = {
-          c = function()
-            if cmp.visible() then
-              cmp.select_prev_item()
-            else
-              cmp.complete()
-            end
-          end
-        },
-        ['<Tab>'] = {
-          c = cmp.mapping.confirm({ select = false })
-        }
-      }
-
-
       cmp.setup({
         window = {
           completion = cmp.config.window.bordered({
@@ -79,8 +54,9 @@ return {
             behavior = cmp.ConfirmBehavior.Replace,
             select = false
           }),
-          ['<C-Down>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
-          ['<C-Up>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' })
+          ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+          ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
+          ['<Esc>'] = cmp.mapping.abort()
         },
         sources = cmp.config.sources({
           { name = 'copilot',  group_index = 1 },
@@ -90,6 +66,8 @@ return {
           { name = 'buffer',   group_index = 3 }
         })
       })
+
+      
 
       cmp.setup.cmdline({ '/', '?' }, {
         mapping = mapping,
