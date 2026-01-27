@@ -61,7 +61,7 @@ map({ 'v', 'x' }, 'Y', '"+y', { desc = 'Yank' })
 
 -- Paste
 map('v', 'pt', '<Cmd> execute "ToggleTermSendVisualSelection " . v:count1 . "" <CR>', { desc = 'Paste on Terminal' })
-map({ 'v', 'x' }, 'P', '"+p', { desc = 'Paste' })
+map({ 'v', 'x', 'n' }, 'P', '"+p', { desc = 'Paste' })
 
 -- Navigation
 map('n', '<C-w><Left>', '<C-w>h', { desc = '← Switch' })
