@@ -54,8 +54,8 @@ map('n', '<Leader>d', ':DapContinue<CR>', { desc = 'Debbug' })
 map('n', '<Leader>d/', ':DapToggleBreakpoint<CR>', { desc = '[?] Breakpoint' })
 
 -- Yank
-map('n', 'yp', [[:lua vim.fn.setreg('+', vim.fn.expand('%.'))<CR>]], { desc = 'Path' })
-map('n', 'yP', [[:lua vim.fn.setreg('+', vim.fn.expand('%.') .. ":" .. vim.api.nvim_win_get_cursor(0)[1])<CR>]],
+map('n', '<Leader>yp', [[:lua vim.fn.setreg('+', vim.fn.expand('%.'))<CR>]], { desc = 'Path' })
+map('n', '<Leader>yP', [[:lua vim.fn.setreg('+', vim.fn.expand('%.') .. ":" .. vim.api.nvim_win_get_cursor(0)[1])<CR>]],
   { desc = 'Line Number' })
 map({ 'v', 'x' }, 'Y', '"+y', { desc = 'Yank' })
 
